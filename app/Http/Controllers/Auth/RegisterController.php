@@ -4,7 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use App\UserAdminProfile;
+use App\UserCandidateProfile;
+use App\UserStaffProfile;
+use App\UserStudentProfile;
+use App\Utils\Constants;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -71,8 +77,14 @@ class RegisterController extends Controller
          * register user to database using Object Relational Model
          * */
         $userType = $data['type'];
-        $make_reg_code = get_reg_code_prefix($userType) . '_'.strtoupper(Str::random(10));
-        return User::create([
+        $make_reg_code = get_reg_code_prefix($userType) . '_'.strtoupper(Str::random(5));
+        $currentSessionId = \App\SystemSetting::find(1)->academic_session_id;
+
+        dump($data);
+
+        DB::beginTransaction();
+
+        $insertUser = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'gender' => $data['gender'],
@@ -81,6 +93,56 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        $newUserId = $insertUser->id;
+
+        if(!$insertUser) DB::rollBack();
+
+        if ($userType == Constants::DBCV_USER_TYPE_CANDIDATE) {
+
+            $createUserProfile = UserCandidateProfile::create([
+                'user_id' => $newUserId,
+                Constants::DBC_CLASS_ID => 1,
+                Constants::DBC_ACAD_SESS_ID => $currentSessionId,
+            ]);
+
+        }
+
+        elseif ($userType == Constants::DBCV_USER_TYPE_STUDENT) {
+
+            $createUserProfile = UserStudentProfile::create([
+                'user_id' => $newUserId,
+//                Constants::DBC_CLASS_ID => 1,
+//                Constants::DBC_ACAD_SESS_ID => $currentSessionId,
+            ]);
+
+        }
+
+
+        elseif ($userType == Constants::DBCV_USER_TYPE_STAFF) {
+            $createUserProfile = true;
+            $createUserProfile = UserStaffProfile::create([
+                'user_id' => $newUserId,
+            ]);
+
+        }
+
+        elseif ($userType == Constants::DBCV_USER_TYPE_ADMIN) {
+
+            $createUserProfile = UserAdminProfile::create([
+                'user_id' => $newUserId,
+//                Constants::DBC_CLASS_ID => 1,
+//                Constants::DBC_ACAD_SESS_ID => $currentSessionId,
+            ]);
+
+        }
+
+
+        if(!$createUserProfile) DB::rollBack();
+
+
+        DB::commit();
+
+        return  $insertUser;
     }
 
 }

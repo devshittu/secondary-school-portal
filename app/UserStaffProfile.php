@@ -5,7 +5,7 @@ namespace App;
 use App\Utils\Constants;
 use Illuminate\Database\Eloquent\Model;
 
-class UserCandidateProfile extends Model
+class UserStaffProfile extends Model
 {
     protected $fillable = ['user_id', Constants::DBC_CLASS_ID, Constants::DBC_ACAD_SESS_ID];
     /**
@@ -20,19 +20,5 @@ class UserCandidateProfile extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
-    }
-    /**
-     * Get the user that owns the candidate_profile.
-     */
-    public function academic_session()
-    {
-        return $this->belongsTo('App\AcademicSession');
-    }
-    /**
-     * Get the user that owns the candidate_profile.
-     */
-    public function academic_class()
-    {
-        return $this->belongsTo('App\AcademicClass');
     }
 }

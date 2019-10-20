@@ -54,7 +54,7 @@
                                                     <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#exampleModalScrollable{{ $u->id }}">
                                                         Update Score
                                                     </button>
-                                                    <!-- Modal -->
+                                                    <!-- Modal For adding score -->
                                                     <div class="modal fade" id="exampleModalScrollable{{ $u->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle{{ $u->id }}" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-scrollable" role="document">
                                                             <div class="modal-content">
