@@ -1,0 +1,117 @@
+@extends('layouts.app')
+
+
+
+@section('content')
+
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                           aria-controls="profile" aria-selected="false">Candidate Profile</a>
+                    </li>
+                    {{--@if (!is_null($profile['exam_datetime']))--}}
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+                               aria-controls="contact" aria-selected="false">Exam Schedule</a>
+                        </li>
+                    {{--@endif--}}
+                    {{--@if (!is_null($profile['exam_score']))--}}
+                        <li class="nav-item">
+                            <a class="nav-link" id="report-tab" data-toggle="tab" href="#report" role="tab"
+                               aria-controls="report" aria-selected="false">Exam Report</a>
+                        </li>
+                    {{--@endif--}}
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        {{--Profile Tab...--}}
+                        <br>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col" colspan="2" class="text-center">Personal Details</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">REG NO</th>
+                                <td>{{ Auth::user()->reg_code ?? '' }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Email</th>
+                                <td>{{ Auth::user()->email ?? '' }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Full Name</th>
+                                <td>{{ (Auth::user()->first_name . ' ' . Auth::user()->last_name) ??  ('Unknown User') }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Gender</th>
+                                <td>{{ Auth::user()->gender ?? ''}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">User Type</th>
+                                <td>{{ Auth::user()->type ?? '' }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <br>
+                        @if (!is_null($profile['exam_datetime']))
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col" colspan="2" class="text-center">Exam Schedule</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Exam Date</th>
+                                <td>
+
+                                    {{ ($profile['exam_datetime'])->format('l, jS M, Y') ?? 'Unavailable at the moment check back later.'}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Time</th>
+                                <td>
+                                    {{ ($profile['exam_datetime'])->format('H:i A') ?? 'Unavailable at the moment check back later.'}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        @else
+                            Unavailable at the moment check back later.
+                        @endif
+                    </div>
+
+                    <div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
+                        <br>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col" colspan="2" class="text-center">Exam Result</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Exam Score</th>
+                                <td>
+
+                                    {{ $profile['exam_score'] ?? 'Unavailable at the moment check back later.'}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
