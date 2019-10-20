@@ -68,4 +68,14 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\UserStaffProfile');
     }
+
+    /**
+     * Get the user's full name.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
 }
