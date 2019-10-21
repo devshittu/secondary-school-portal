@@ -5,6 +5,13 @@
  * Date: 10/18/19
  * Time: 9:24 PM
  */
+if (! function_exists('auto_increment')) {
+    function auto_increment(){
+        for ($i = 0; $i < 1000; $i++) {
+            yield $i;
+        }
+    }
+}
 if (! function_exists('get_reg_code_prefix')) {
 
     function get_reg_code_prefix($userType) {

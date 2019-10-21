@@ -16,6 +16,7 @@ class CreateUserStudentProfilesTable extends Migration
     {
         Schema::create('user_student_profiles', function (Blueprint $table) {
             $table->increments('id');
+            $table->string(Constants::DBC_AVATAR)->index()->nullable();
             $table->unsignedInteger(Constants::DBC_USER_ID)->index();
 
 
@@ -30,7 +31,7 @@ class CreateUserStudentProfilesTable extends Migration
                             ->on('users')
                             ->onUpdate('restrict')
                             ->onDelete('restrict');*/
-            $table->boolean('has_paid');
+            $table->boolean('has_paid')->default(false);
             $table->timestamps();
         });
     }

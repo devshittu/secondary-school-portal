@@ -20,6 +20,7 @@ class Constants
     public const DBC_SCHOOL_NAME = 'school_name';
     public const DBC_TITLE = 'title';
     public const DBC_EXAM_SCORE = 'exam_score';
+    public const DBC_EXAM_DATETIME = 'exam_datetime';
     public const DBC_ACAD_SESS_ID = 'academic_session_id';
     public const DBC_ACAD_TERM_ID = 'academic_term_id';
     public const DBC_TERM_START_DATE = 'term_start_date';
@@ -44,6 +45,9 @@ class Constants
         self::DBCV_USER_TYPE_STAFF, self::DBCV_USER_TYPE_ADMIN,];
 
     public const AV_GENDER_TYPE= [self::DBCV_GENDER_TYPE_MALE, self::DBCV_GENDER_TYPE_FEMALE, ];
+    const DBC_AVATAR = 'avatar';
+//    const AVATAR_UPLOAD_PATH = 'public/avatar/';
+    const AVATAR_UPLOAD_PATH = 'public/avatar';
 
 
 }

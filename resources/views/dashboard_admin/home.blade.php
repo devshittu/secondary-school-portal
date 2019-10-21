@@ -45,7 +45,7 @@
                                             <tr>
                                                 <th scope="row">{{ $u->id }}</th>
                                                 <td>{{ $u->reg_code }}</td>
-                                                <td>{{ $u->first_name . ' ' . $u->last_name }}</td>
+                                                <td> {{ $u->first_name . ' ' . $u->last_name }}</td>
                                                 <td>
 
                                                     @if ($u->type === 'candidate')

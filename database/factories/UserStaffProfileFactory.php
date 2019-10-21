@@ -2,20 +2,18 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\UserAdminProfile;
+use App\Model;
 use App\Utils\Constants;
 use Faker\Generator as Faker;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
 
 $autoIncrement = auto_increment();
 
-$factory->define(UserAdminProfile::class, function (Faker $faker)  use ($autoIncrement)  {
+$factory->define(\App\UserStaffProfile::class, function (Faker $faker)  use ($autoIncrement)  {
 
 
     $autoIncrement->next();
-    $type = Constants::DBCV_USER_TYPE_ADMIN;
+    $type = Constants::DBCV_USER_TYPE_STAFF;
 
     $allowedGenderTypes = \App\Utils\Constants::AV_GENDER_TYPE;
     $avGenderAtRand = array_rand($allowedGenderTypes);
@@ -27,7 +25,7 @@ $factory->define(UserAdminProfile::class, function (Faker $faker)  use ($autoInc
             'first_name' => $faker->firstName($selectedGenderType),
             'type' => $selectedUserType,
             'gender' => $selectedGenderType,
-            'email' => 'admin'.$autoIncrement->current().'@test.com',
+            'email' => 'staff'.$autoIncrement->current().'@test.com',
             'reg_code' => $regCodePrefix . strtoupper(Str::random(5)),
         ])->id,
     ];

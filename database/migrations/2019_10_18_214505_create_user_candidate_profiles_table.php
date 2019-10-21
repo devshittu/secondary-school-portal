@@ -17,7 +17,8 @@ class CreateUserCandidateProfilesTable extends Migration
         Schema::create('user_candidate_profiles', function (Blueprint $table) {
             $table->increments('id');
 //            $table->dateTime('created_at')->index()->nullable();
-            $table->dateTime('exam_datetime')->index()->nullable();
+            $table->string(Constants::DBC_AVATAR)->index()->nullable();
+            $table->dateTime(Constants::DBC_EXAM_DATETIME)->index()->nullable();
             $table->unsignedInteger(Constants::DBC_USER_ID)->index();
             $table->unsignedInteger(Constants::DBC_CLASS_ID)->index();
             $table->unsignedInteger(Constants::DBC_ACAD_SESS_ID)->index();

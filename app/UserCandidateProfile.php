@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserCandidateProfile extends Model
 {
-    protected $fillable = ['user_id', Constants::DBC_CLASS_ID, Constants::DBC_ACAD_SESS_ID];
+    protected $fillable = ['user_id', Constants::DBC_CLASS_ID, Constants::DBC_ACAD_SESS_ID, Constants::DBC_AVATAR,];
     /**
      * The attributes that should be mutated to dates.
      *
@@ -22,14 +22,14 @@ class UserCandidateProfile extends Model
         return $this->belongsTo('App\User');
     }
     /**
-     * Get the user that owns the candidate_profile.
+     * Get the academic sessions for the user/candidate.
      */
     public function academic_session()
     {
         return $this->belongsTo('App\AcademicSession');
     }
     /**
-     * Get the user that owns the candidate_profile.
+     * Get the academic class that owns the candidate applied to.
      */
     public function academic_class()
     {

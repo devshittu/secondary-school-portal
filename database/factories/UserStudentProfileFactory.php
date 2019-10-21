@@ -2,22 +2,27 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\UserAdminProfile;
+use App\Model;
 use App\Utils\Constants;
 use Faker\Generator as Faker;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+
+$factory->define(Model::class, function (Faker $faker) {
+    return [
+        //
+    ];
+});
 
 
 $autoIncrement = auto_increment();
 
-$factory->define(UserAdminProfile::class, function (Faker $faker)  use ($autoIncrement)  {
+$factory->define(\App\UserStudentProfile::class, function (Faker $faker)  use ($autoIncrement)  {
 
 
     $autoIncrement->next();
-    $type = Constants::DBCV_USER_TYPE_ADMIN;
+    $type = Constants::DBCV_USER_TYPE_STUDENT;
 
-    $allowedGenderTypes = \App\Utils\Constants::AV_GENDER_TYPE;
+    $allowedGenderTypes = Constants::AV_GENDER_TYPE;
     $avGenderAtRand = array_rand($allowedGenderTypes);
     $selectedUserType = $type;
     $selectedGenderType = $allowedGenderTypes[$avGenderAtRand];
@@ -27,7 +32,7 @@ $factory->define(UserAdminProfile::class, function (Faker $faker)  use ($autoInc
             'first_name' => $faker->firstName($selectedGenderType),
             'type' => $selectedUserType,
             'gender' => $selectedGenderType,
-            'email' => 'admin'.$autoIncrement->current().'@test.com',
+            'email' => 'student'.$autoIncrement->current().'@test.com',
             'reg_code' => $regCodePrefix . strtoupper(Str::random(5)),
         ])->id,
     ];

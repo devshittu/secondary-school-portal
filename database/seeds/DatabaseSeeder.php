@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
 
         factory('App\UserAdminProfile', 2)->create();
         factory('App\UserCandidateProfile', 5)->create();
+        factory('App\UserStaffProfile', 5)->create();
+        factory('App\UserStudentProfile', 5)->create();
 //        factory('App\Source', 20)->create();
 //        factory('App\Story', 200)->create();
 

@@ -15,19 +15,16 @@ use Illuminate\Support\Str;
 | model instances for testing / seeding your application's database.
 |
 */
-$autoIncrement = autoIncrement();
 
 $factory->define(User::class, function (Faker $faker) use ($autoIncrement) {
-    $autoIncrement->next();
+
     $allowedUserTypes = \App\Utils\Constants::AV_USER_TYPE;
     $avAtRand = array_rand($allowedUserTypes);
     $allowedGenderTypes = \App\Utils\Constants::AV_GENDER_TYPE;
     $avGenderAtRand = array_rand($allowedGenderTypes);
     $selectedUserType = $allowedUserTypes[$avAtRand];
     $selectedGenderType = $allowedGenderTypes[$avGenderAtRand];
-//    dump('$selectedUserType:// ', $selectedUserType);
-    $regCodePrefix = getRegCodePrefix($selectedUserType);
-//    dump('$regCodePrefix:// ', $regCodePrefix);
+    $regCodePrefix = get_reg_code_prefix($selectedUserType);
 
     return [
         'first_name' => $faker->firstName($selectedGenderType),
@@ -38,32 +35,6 @@ $factory->define(User::class, function (Faker $faker) use ($autoIncrement) {
         'remember_token' => Str::random(10),
         'type' => $selectedUserType,
         'gender' => $selectedGenderType,
-        'reg_code' => $regCodePrefix . strtoupper(Str::random(10)),
+        'reg_code' => $regCodePrefix . strtoupper(Str::random(5)),
     ];
 });
-
-function autoIncrement(){
-    for ($i = 0; $i < 1000; $i++) {
-        yield $i;
-    }
-}
-
-function getRegCodePrefix($userType) {
-    $prefix = '';
-    switch ($userType) {
-        case \App\Utils\Constants::DBCV_USER_TYPE_ADMIN:
-            $prefix = 'ADM';
-            break;
-        case \App\Utils\Constants::DBCV_USER_TYPE_CANDIDATE:
-            $prefix = 'CND';
-            break;
-        case \App\Utils\Constants::DBCV_USER_TYPE_STAFF:
-            $prefix = 'STF';
-            break;
-        case \App\Utils\Constants::DBCV_USER_TYPE_STUDENT:
-            $prefix = 'STD';
-            break;
-
-    }
-    return $prefix . '_';
-}
