@@ -14,10 +14,12 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
 
 
-        $this->call(ClassesTableSeeder::class);
+        $this->call(AcademicClassesTableSeeder::class);
+        $this->call(AcademicSubjectsTableSeeder::class);
         $this->call(AcademicSessionsTableSeeder::class);
         $this->call(AcademicTermsTableSeeder::class);
         $this->call(ClassTermsTableSeeder::class);
+        $this->call(ClassSubjectTableSeeder::class);
         $this->call(SystemSettingsTableSeeder::class);
 
         factory('App\UserAdminProfile', 2)->create();

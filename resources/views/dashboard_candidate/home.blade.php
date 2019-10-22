@@ -32,7 +32,7 @@
                         {{--Profile Tab...--}}
                         <br>
 
-                        <!-- Upload  -->
+                        @if (is_null(Auth::user()->candidate_profile->avatar))
                         <form id="file-upload-form" class="uploader" action="{{route('update_avatar')}}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
                             @csrf
                             <input id="file-upload" type="file" name="{{ \App\Utils\Constants::DBC_AVATAR }}" accept="image/*" onchange="readURL(this);">
@@ -49,6 +49,9 @@
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </label>
                         </form>
+                        @else
+                            <img src="{{ asset('storage/'.Auth::user()->candidate_profile->avatar) }}" width="120px" height="120px">
+                        @endif
                         <br>
 
                         <table class="table table-striped">

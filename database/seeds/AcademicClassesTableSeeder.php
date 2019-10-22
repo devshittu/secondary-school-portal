@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class ClassesTableSeeder extends Seeder
+class AcademicClassesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +13,7 @@ class ClassesTableSeeder extends Seeder
     {
         DB::statement("
 
-            INSERT INTO `classes` (`id`, `title`, `code_name`) VALUES
+            INSERT INTO `academic_classes` (`id`, `title`, `code_name`) VALUES
             (1, 'Junior Secondary School One', 'JSS-1'),
             (2, 'Junior Secondary School Two', 'JSS-2'),
             (3, 'Junior Secondary School One', 'JSS-3'),

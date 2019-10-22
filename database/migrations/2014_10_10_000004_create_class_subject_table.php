@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClassTermsTable extends Migration
+class CreateClassSubjectTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,11 @@ class CreateClassTermsTable extends Migration
      */
     public function up()
     {
-        Schema::create('class_terms', function (Blueprint $table) {
+        Schema::create('class_subject', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger(Constants::DBC_ACAD_CLASS_ID)->index();
-            $table->unsignedInteger(Constants::DBC_ACAD_TERM_ID)->index();
-            $table->char(Constants::DBC_CODE_NAME, 10)->unique();
+            $table->unsignedInteger(Constants::DBC_ACAD_SUBJECT_ID)->index();
+//            $table->char(Constants::DBC_CODE_NAME, 10)->unique();
 
             $table->foreign(Constants::DBC_ACAD_CLASS_ID)
                 ->references( Constants::DBC_REF_ID)
@@ -26,12 +26,11 @@ class CreateClassTermsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign(Constants::DBC_ACAD_TERM_ID)
+            $table->foreign(Constants::DBC_ACAD_SUBJECT_ID)
                 ->references(Constants::DBC_REF_ID)
-                ->on('academic_terms')
+                ->on('academic_subjects')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-
             $table->timestamps();
         });
     }
@@ -43,6 +42,6 @@ class CreateClassTermsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('class_terms');
+        Schema::dropIfExists('class_subject');
     }
 }

@@ -46,19 +46,18 @@ class UsersController extends Controller
         $filename = '';
 
 
-
         if ($files = $request->file(Constants::DBC_AVATAR)) {
             $destinationPath = Constants::AVATAR_UPLOAD_PATH; // upload path
             $filename = Auth::user()->reg_code . "." . $files->getClientOriginalExtension();
 
             $filePath = $request->avatar->storeAs($destinationPath, $filename); // it return the path at which the file is now save
 
-            if($request->avatar->isValid()){
-                dd('upload_sux');
+            if ($request->avatar->isValid()) {
+//                dd('upload_sux');
                 if (Auth::user()->type === Constants::DBCV_USER_TYPE_CANDIDATE) {
                     UserCandidateProfile::where(Constants::DBC_USER_ID, Auth::id())
-                        ->update([Constants::DBC_AVATAR => $filePath]);
-            }
+                        ->update([Constants::DBC_AVATAR => Constants::AVATAR_DOWNLOAD_PATH.$filename]);
+                }
             }
 
         }

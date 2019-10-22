@@ -22,7 +22,7 @@ class SettingsController extends Controller
         $data = [
             'academic_sessions' => AcademicSession::all(),
             'academic_terms' => AcademicTerm::all(),
-            'classes' => AcademicClass::all(),
+            'academic_classes' => AcademicClass::all(),
             'settings' => SystemSetting::find(1),
         ];
         return view('dashboard_admin.settings', $data);
@@ -59,7 +59,7 @@ class SettingsController extends Controller
     {
 //        dd($request);
         // session applied for is the current session from settings
-        UserCandidateProfile::where('class_id', $request->class_id)
+        UserCandidateProfile::where('academic_class_id', $request->academic_class_id)
             ->where('academic_session_id', SystemSetting::find($id)->academic_session_id)
             ->update(['exam_datetime' => $request->exam_datetime]);
 

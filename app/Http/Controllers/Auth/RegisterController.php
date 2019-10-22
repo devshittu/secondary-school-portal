@@ -101,7 +101,7 @@ class RegisterController extends Controller
 
             $createUserProfile = UserCandidateProfile::create([
                 'user_id' => $newUserId,
-                Constants::DBC_CLASS_ID => 1,
+                Constants::DBC_ACAD_CLASS_ID => 1,
                 Constants::DBC_ACAD_SESS_ID => $currentSessionId,
             ]);
 

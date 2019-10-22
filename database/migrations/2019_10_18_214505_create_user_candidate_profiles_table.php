@@ -20,7 +20,7 @@ class CreateUserCandidateProfilesTable extends Migration
             $table->string(Constants::DBC_AVATAR)->index()->nullable();
             $table->dateTime(Constants::DBC_EXAM_DATETIME)->index()->nullable();
             $table->unsignedInteger(Constants::DBC_USER_ID)->index();
-            $table->unsignedInteger(Constants::DBC_CLASS_ID)->index();
+            $table->unsignedInteger(Constants::DBC_ACAD_CLASS_ID)->index();
             $table->unsignedInteger(Constants::DBC_ACAD_SESS_ID)->index();
             $table->unsignedInteger(Constants::DBC_EXAM_SCORE)->index()->nullable();
             $table->timestamps();
@@ -32,9 +32,9 @@ class CreateUserCandidateProfilesTable extends Migration
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
 
-            $table->foreign(Constants::DBC_CLASS_ID)
+            $table->foreign(Constants::DBC_ACAD_CLASS_ID)
                 ->references(Constants::DBC_REF_ID)
-                ->on('classes')
+                ->on('academic_classes')
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
 

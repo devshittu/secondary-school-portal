@@ -25,12 +25,6 @@ class CreateUserStudentProfilesTable extends Migration
                 ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            /*
-                        $table->foreign('user_id')
-                            ->references('email')
-                            ->on('users')
-                            ->onUpdate('restrict')
-                            ->onDelete('restrict');*/
             $table->boolean('has_paid')->default(false);
             $table->timestamps();
         });

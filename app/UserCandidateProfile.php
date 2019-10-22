@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserCandidateProfile extends Model
 {
-    protected $fillable = ['user_id', Constants::DBC_CLASS_ID, Constants::DBC_ACAD_SESS_ID, Constants::DBC_AVATAR,];
+    protected $fillable = ['user_id', Constants::DBC_ACAD_CLASS_ID, Constants::DBC_ACAD_SESS_ID, Constants::DBC_AVATAR,];
     /**
      * The attributes that should be mutated to dates.
      *

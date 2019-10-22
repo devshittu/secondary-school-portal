@@ -118,12 +118,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="class_id" class="col-md-4 col-form-label text-md-right">{{ __('For Class') }}</label>
+                                <label for="academic_class_id" class="col-md-4 col-form-label text-md-right">{{ __('For Class') }}</label>
 
                                 <div class="col-md-6">
 
-                                    <select class="form-control @error('class_id') is-invalid @enderror" name="class_id" id="class_id" required >
-                                        @foreach ($classes as $c)
+                                    <select class="form-control @error('academic_class_id') is-invalid @enderror" name="class_id" id="academic_class_id" required >
+                                        @foreach ($academic_classes as $c)
                                                 <option value="{{ $c->id }}">{{ $c->title }}</option>
                                         @endforeach
                                     </select>

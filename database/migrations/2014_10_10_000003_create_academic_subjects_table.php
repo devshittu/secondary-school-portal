@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClassesTable extends Migration
+class CreateAcademicSubjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateClassesTable extends Migration
      */
     public function up()
     {
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::create('academic_subjects', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title'); //JSS1-SSS3
-            $table->char('code_name', 6)->unique(true);
-//            $table->timestamps();
+            $table->string('title');
+            $table->char('code_name', 3)->unique(true);
         });
     }
 
@@ -28,6 +27,6 @@ class CreateClassesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classes');
+        Schema::dropIfExists('academic_subjects');
     }
 }

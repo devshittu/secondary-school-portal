@@ -31,7 +31,7 @@ $factory->define(UserCandidateProfile::class, function (Faker $faker) use ($auto
             'gender' => $selectedGenderType,
             'reg_code' => $regCodePrefix . strtoupper(Str::random(5)),
         ])->id,
-        Constants::DBC_CLASS_ID => 1,
+        Constants::DBC_ACAD_CLASS_ID => 1,
         Constants::DBC_ACAD_SESS_ID => $currentSessionId,
     ];
 });

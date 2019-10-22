@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\SystemSetting;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use stdClass;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // Share settings to all views
-        $settings = SystemSetting::find(1);
+        $settings = SystemSetting::find(1) ?? new stdClass();
         View::share('settings', $settings);
     }
 }
