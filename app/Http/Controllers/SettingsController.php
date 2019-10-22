@@ -7,6 +7,7 @@ use App\AcademicSession;
 use App\AcademicTerm;
 use App\SystemSetting;
 use App\UserCandidateProfile;
+use App\Utils\Constants;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
@@ -22,7 +23,8 @@ class SettingsController extends Controller
         $data = [
             'academic_sessions' => AcademicSession::all(),
             'academic_terms' => AcademicTerm::all(),
-            'academic_classes' => AcademicClass::all(),
+//            'academic_classes' => AcademicClass::all(),
+            'academic_classes' => AcademicClass::where(Constants::DBC_CAN_APPLY, true)->get(),
             'settings' => SystemSetting::find(1),
         ];
         return view('dashboard_admin.settings', $data);
@@ -57,13 +59,16 @@ class SettingsController extends Controller
      */
     public function exam_update(Request $request, $id = 1)
     {
-//        dd($request);
         // session applied for is the current session from settings
+//        $user = User::whereEmail($email)->first();
+//        $systemSettings = SystemSetting::where('academic_session_id', $request->academic_session_id)->first();
+        $systemSettings = SystemSetting::find($id);
+
         UserCandidateProfile::where('academic_class_id', $request->academic_class_id)
-            ->where('academic_session_id', SystemSetting::find($id)->academic_session_id)
+            ->where('academic_session_id', $systemSettings->academic_session_id)
             ->update(['exam_datetime' => $request->exam_datetime]);
 
-        return redirect('settings')->with('success_message', 'Settings Saved!');
+        return redirect('settings')->with('success_message', 'Settings Saved! All applicants are all aware of the change.');
     }
 
     /**

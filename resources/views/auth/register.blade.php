@@ -91,6 +91,28 @@
                                         </div>
                                     </div>
 
+
+                                    <div class="form-group row">
+                                        <label for="academic_class_id"
+                                               class="col-md-4 col-form-label text-md-right">{{ __('Class') }}</label>
+
+                                        <div class="col-md-6">
+
+                                            <select class="form-control @error('academic_class_id') is-invalid @enderror" name="{{ \App\Utils\Constants::DBC_ACAD_CLASS_ID }}"
+                                                    id="academic_class_id" required>
+
+                                                @foreach ($academic_classes as $ac)
+                                                    <option value="{{ $ac->id }}">{{ $ac->title }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('academic_class_id')
+                                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
                                     <div class="form-group row">
                                         <label for="email"
                                                class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>

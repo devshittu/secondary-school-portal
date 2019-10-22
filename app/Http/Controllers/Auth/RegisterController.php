@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\AcademicClass;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\UserAdminProfile;
@@ -101,7 +102,7 @@ class RegisterController extends Controller
 
             $createUserProfile = UserCandidateProfile::create([
                 'user_id' => $newUserId,
-                Constants::DBC_ACAD_CLASS_ID => 1,
+                Constants::DBC_ACAD_CLASS_ID => $data[Constants::DBC_ACAD_CLASS_ID],
                 Constants::DBC_ACAD_SESS_ID => $currentSessionId,
             ]);
 
@@ -144,5 +145,21 @@ class RegisterController extends Controller
 
         return  $insertUser;
     }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+
+        $data = [
+            'academic_classes' => AcademicClass::where(Constants::DBC_CAN_APPLY, true)->get(),
+        ];
+        return view('auth.register', $data);
+    }
+
 
 }

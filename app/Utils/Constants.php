@@ -28,6 +28,7 @@ class Constants
     public const DBC_TERM_END_DATE = 'term_end_date';
     public const DBC_ACAD_CLASS_ID = 'academic_class_id';
     public const DBC_CLASS_TERM_ID = 'class_term_id';
+    public const DBC_CAN_APPLY = 'can_apply';
     public const DBC_REF_ID = 'id';
     public const DBC_REF_REG_CODE = 'reg_code';
     public const DBC_REF_CODE_NAME = 'code_name';

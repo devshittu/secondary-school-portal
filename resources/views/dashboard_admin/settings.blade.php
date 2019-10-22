@@ -100,17 +100,17 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="academic_session" class="col-md-4 col-form-label text-md-right">{{ __('For Academic Session') }}</label>
+                                <label for="academic_session_id" class="col-md-4 col-form-label text-md-right">{{ __('For Academic Session') }}</label>
 
                                 <div class="col-md-6">
 
-                                    <select class="form-control @error('academic_session') is-invalid @enderror" name="academic_session" id="academic_session" required >
+                                    <select class="form-control @error('academic_session_id') is-invalid @enderror" name="academic_session_id" id="academic_session_id" required >
                                         <option value="">Select</option>
                                         @foreach ($academic_sessions as $as)
                                                 <option value="{{ $as->id }}" @if ($settings->academic_session_id == $as->id)  selected  @endif>{{ $as->title }}</option>
                                         @endforeach
                                     </select>
-                                    @error('academic_session')
+                                    @error('academic_session_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -122,7 +122,7 @@
 
                                 <div class="col-md-6">
 
-                                    <select class="form-control @error('academic_class_id') is-invalid @enderror" name="class_id" id="academic_class_id" required >
+                                    <select class="form-control @error('academic_class_id') is-invalid @enderror" name="academic_class_id" id="academic_class_id" required >
                                         @foreach ($academic_classes as $c)
                                                 <option value="{{ $c->id }}">{{ $c->title }}</option>
                                         @endforeach
