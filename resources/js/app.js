@@ -19,7 +19,20 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('user-item-in-tb', require('./components/UserItemInTb.vue').default);
+// Vue.component('blog-post', {
+//     props: ['post'],
+//     template: `
+//     <div class="blog-post">
+//       <h3>{{ post.full_name }}</h3>
+//       <div v-html="post.reg_code"></div>
+//     </div>
+//   `,
+//     mounted() {
+//         console.log('blog post mounted')
+//     }
+// });
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

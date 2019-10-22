@@ -16,7 +16,6 @@ class CreateUserStaffProfilesTable extends Migration
     {
         Schema::create('user_staff_profiles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string(Constants::DBC_AVATAR)->index()->nullable();
             $table->unsignedInteger(Constants::DBC_USER_ID)->index();
             $table->foreign(Constants::DBC_USER_ID)
                 ->references(Constants::DBC_REF_ID)

@@ -7,6 +7,36 @@
 
 
     <div class="container">
+        @if (Auth::user()->candidate_profile->is_admitted)
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Congratulations</div>
+
+                    <div class="card-body">
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+                        You have been offered admission in to {{ $settings->school_name }}
+                    </div>
+                    <div class="card-footer">
+
+                        <form id="accept-admission-form" action="{{ route('accept_admission') }}" method="POST"
+                              style="display: none;">
+                            @csrf
+                        </form>
+                        <button type="button" class="btn btn-success"
+                                onclick="event.preventDefault();
+                                        document.getElementById('accept-admission-form' ).submit();">
+                            Accept Admission</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        @endif
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -32,7 +62,7 @@
                         {{--Profile Tab...--}}
                         <br>
 
-                        @if (is_null(Auth::user()->candidate_profile->avatar))
+                        @if (is_null(Auth::user()->avatar))
                         <form id="file-upload-form" class="uploader" action="{{route('update_avatar')}}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
                             @csrf
                             <input id="file-upload" type="file" name="{{ \App\Utils\Constants::DBC_AVATAR }}" accept="image/*" onchange="readURL(this);">
@@ -50,7 +80,7 @@
                             </label>
                         </form>
                         @else
-                            <img src="{{ asset('storage/'.Auth::user()->candidate_profile->avatar) }}" width="120px" height="120px">
+                            <img src="{{ asset('storage/'.Auth::user()->avatar) }}" width="120px" height="120px">
                         @endif
                         <br>
 

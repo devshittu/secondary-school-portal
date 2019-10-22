@@ -25,4 +25,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('settings/exam/update',  'SettingsController@exam_update')->name('settings_exams_update');
     Route::post('user/candidate/score/{user_id}/update',  'UsersController@candidate_score_update')->name('update_candidate_score');
     Route::post('user/avatar/update',  'UsersController@avatar_update')->name('update_avatar');
+    Route::post('user/candidate/accept_admission',  'UsersController@candidateAcceptAdmission')->name('accept_admission');
 });

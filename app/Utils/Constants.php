@@ -16,17 +16,21 @@ class Constants
 
     //NAME OF THE COLUMNS IN THE DATABASE
     public const DBC_USER_ID = 'user_id';
+    public const DBC_USER_TYPE = 'type';
     public const DBC_CODE_NAME = 'code_name';
     public const DBC_SCHOOL_NAME = 'school_name';
     public const DBC_TITLE = 'title';
     public const DBC_EXAM_SCORE = 'exam_score';
+    public const DBC_IS_ADMITTED = 'is_admitted';
     public const DBC_EXAM_DATETIME = 'exam_datetime';
     public const DBC_ACAD_SESS_ID = 'academic_session_id';
+    public const DBC_ENROLL_SESS_ID = 'enrollment_session_id';
     public const DBC_ACAD_TERM_ID = 'academic_term_id';
     public const DBC_ACAD_SUBJECT_ID = 'academic_subject_id';
     public const DBC_TERM_START_DATE = 'term_start_date';
     public const DBC_TERM_END_DATE = 'term_end_date';
     public const DBC_ACAD_CLASS_ID = 'academic_class_id';
+    public const DBC_ENROLL_CLASS_ID = 'enrollment_class_id';
     public const DBC_CLASS_TERM_ID = 'class_term_id';
     public const DBC_CAN_APPLY = 'can_apply';
     public const DBC_REF_ID = 'id';

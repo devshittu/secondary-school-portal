@@ -45,21 +45,21 @@
                                             <tr>
                                                 <th scope="row">{{ $u->id }}</th>
                                                 <td>{{ $u->reg_code }}</td>
-                                                <td> {{ $u->first_name . ' ' . $u->last_name }}</td>
+                                                <td> {{ $u->full_name }}</td>
                                                 <td>
 
                                                     @if ($u->type === 'candidate')
                                                     {{--<a href="{{ $u->id }}" class="btn btn-dark btn-sm"> View</a>--}}
                                                     <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#exampleModalScrollable{{ $u->id }}">
+                                                    <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#candidateModal{{ $u->id }}">
                                                         Update Score
                                                     </button>
                                                     <!-- Modal For adding score -->
-                                                    <div class="modal fade" id="exampleModalScrollable{{ $u->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle{{ $u->id }}" aria-hidden="true">
+                                                    <div class="modal fade" id="candidateModal{{ $u->id }}" tabindex="-1" role="dialog" aria-labelledby="candidateModalTitle{{ $u->id }}" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-scrollable" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalScrollableTitle{{ $u->id }}"> {{ $u->full_name }}</h5>
+                                                                    <h5 class="modal-title" id="candidateModalTitle{{ $u->id }}"> {{ $u->full_name }}</h5>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
@@ -70,19 +70,25 @@
 
                                                                         <div class="form-group">
                                                                             <label for="score">Score</label>
-                                                                            <input type="number" name="score" value="{{ $u->candidate_profile->exam_score }}" class="form-control" id="score" placeholder="0-100">
+                                                                            <input type="number" name="score" value="{{ $u->candidate_profile->exam_score }}" oninput="checkScore(this, {{ $u->id }})" class="form-control" id="score" placeholder="0-100">
+                                                                            <input type="hidden" name="{{ \App\Utils\Constants::DBC_IS_ADMITTED }}" value="0" class="form-control" id="is_admitted{{$u->id}}">
                                                                         </div>
                                                                     </form>
-
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="button" class="btn btn-success"
+                                                                    <button type="button" class="btn btn-primary"
                                                                             onclick="event.preventDefault();
                                                                             document.getElementById('update-score-form-{{ $u->id }}' ).submit();">
-                                                                        Save changes</button>
+                                                                        Save</button>
+                                                                    <button id="saveAndOfferAdmission{{$u->id}}" type="button" class="btn btn-success" style="display: none"
+                                                                            onclick="event.preventDefault();
+                                                                            document.getElementById('update-score-form-{{ $u->id }}' ).action = '{{ route('update_candidate_score', ['user_id' => $u->id, 'offer' => 1]) }}';
+                                                                            document.getElementById('update-score-form-{{ $u->id }}' ).submit();">
+                                                                        Save & Offer Admission</button>
                                                                 </div>
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                     @endif
@@ -96,6 +102,7 @@
                                     </tbody>
                                 </table>
                                 <p>More functionality is coming.</p>
+
                             </div>
                             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
                                  aria-labelledby="v-pills-profile-tab">

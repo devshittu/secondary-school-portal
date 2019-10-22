@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserStudentProfile extends Model
 {
-    protected $fillable = ['user_id', 'has_paid'];
+    protected $fillable = ['user_id', 'has_paid', 'enrollment_session_id', 'enrollment_class_id', ];
 
     /**
      * Get the user that owns the student_profile.
@@ -14,5 +14,20 @@ class UserStudentProfile extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    /**
+     * Get the academic sessions for the user/candidate.
+     */
+    public function academic_session()
+    {
+        return $this->belongsTo('App\AcademicSession', 'academic_session_id', 'enrollment_session_id');
+    }
+    /**
+     * Get the academic class that owns the candidate applied to.
+     */
+    public function academic_class()
+    {
+        return $this->belongsTo('App\AcademicClass', 'academic_class_id', 'enrollment_class_id');
     }
 }

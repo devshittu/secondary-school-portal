@@ -26,6 +26,11 @@ class AcademicClass extends Model
         return $this->hasMany(UserCandidateProfile::class);
     }
 
+    public function user_student_profiles()
+    {
+        return $this->hasMany(UserStudentProfile::class, 'enrollment_class_id');
+    }
+
     public function academic_subjects()
     {
         return $this->belongsToMany('App\AcademicSubject');

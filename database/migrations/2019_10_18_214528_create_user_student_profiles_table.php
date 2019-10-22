@@ -16,8 +16,9 @@ class CreateUserStudentProfilesTable extends Migration
     {
         Schema::create('user_student_profiles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string(Constants::DBC_AVATAR)->index()->nullable();
             $table->unsignedInteger(Constants::DBC_USER_ID)->index();
+            $table->unsignedInteger(Constants::DBC_ENROLL_SESS_ID)->index();
+            $table->unsignedInteger(Constants::DBC_ENROLL_CLASS_ID)->index();
 
 
             $table->foreign(Constants::DBC_USER_ID)
@@ -25,6 +26,18 @@ class CreateUserStudentProfilesTable extends Migration
                 ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign(Constants::DBC_ENROLL_CLASS_ID)
+                ->references(Constants::DBC_REF_ID)
+                ->on('academic_classes')
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
+
+            $table->foreign(Constants::DBC_ENROLL_SESS_ID)
+                ->references(Constants::DBC_REF_ID)
+                ->on('academic_sessions')
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
             $table->boolean('has_paid')->default(false);
             $table->timestamps();
         });

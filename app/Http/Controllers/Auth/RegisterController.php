@@ -78,7 +78,7 @@ class RegisterController extends Controller
          * register user to database using Object Relational Model
          * */
         $userType = $data['type'];
-        $make_reg_code = get_reg_code_prefix($userType) . '_'.strtoupper(Str::random(5));
+        $make_reg_code = get_reg_code_prefix($userType) . strtoupper(Str::random(5));
         $currentSessionId = \App\SystemSetting::find(1)->academic_session_id;
 
         dump($data);

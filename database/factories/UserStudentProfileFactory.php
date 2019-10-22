@@ -7,11 +7,6 @@ use App\Utils\Constants;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
-$factory->define(Model::class, function (Faker $faker) {
-    return [
-        //
-    ];
-});
 
 
 $autoIncrement = auto_increment();
@@ -27,6 +22,8 @@ $factory->define(\App\UserStudentProfile::class, function (Faker $faker)  use ($
     $selectedUserType = $type;
     $selectedGenderType = $allowedGenderTypes[$avGenderAtRand];
     $regCodePrefix = get_reg_code_prefix($selectedUserType);
+    $currentSessionId = \App\SystemSetting::find(1)->academic_session_id;
+
     return [
         Constants::DBC_USER_ID => factory('App\User')->create([
             'first_name' => $faker->firstName($selectedGenderType),
@@ -35,6 +32,8 @@ $factory->define(\App\UserStudentProfile::class, function (Faker $faker)  use ($
             'email' => 'student'.$autoIncrement->current().'@test.com',
             'reg_code' => $regCodePrefix . strtoupper(Str::random(5)),
         ])->id,
+        Constants::DBC_ENROLL_CLASS_ID => 1,
+        Constants::DBC_ENROLL_SESS_ID => $currentSessionId,
     ];
 });
 

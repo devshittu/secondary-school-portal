@@ -12,6 +12,7 @@ if (! function_exists('auto_increment')) {
         }
     }
 }
+
 if (! function_exists('get_reg_code_prefix')) {
 
     function get_reg_code_prefix($userType) {
@@ -32,6 +33,16 @@ if (! function_exists('get_reg_code_prefix')) {
 
         }
         return $prefix . '_';
+    }
+
+}
+if (! function_exists('get_reg_code_code')) {
+
+    function get_reg_code_code($userRegCode) {
+        $code = '';
+        $rc = explode('_', $userRegCode);
+        return $rc[1];
+
     }
 
 }

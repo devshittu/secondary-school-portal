@@ -60,7 +60,8 @@ class SettingsController extends Controller
     public function exam_update(Request $request, $id = 1)
     {
         // session applied for is the current session from settings
-//        $user = User::whereEmail($email)->first();
+        //single entry
+//        $user = User::whereEmail($email)->first(); //for multiple entries user ->get();
 //        $systemSettings = SystemSetting::where('academic_session_id', $request->academic_session_id)->first();
         $systemSettings = SystemSetting::find($id);
 
