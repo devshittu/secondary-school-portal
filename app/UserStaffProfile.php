@@ -21,4 +21,12 @@ class UserStaffProfile extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     * Get the class staff is holding that owns the candidate applied to.
+     */
+    public function staff_classes()
+    {
+        return $this->hasMany('App\ClassStaff');
+    }
 }

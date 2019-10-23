@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\AcademicSubject;
+use App\ClassStaff;
 use App\ClassSubject;
 use App\StudentTerminalLog;
 use App\User;
 use App\UserAdminProfile;
 use App\UserCandidateProfile;
+use App\UserStaffProfile;
 use App\UserStudentProfile;
 use App\Utils\Constants;
 use Illuminate\Http\Request;
@@ -55,16 +57,22 @@ class HomeController extends Controller
 
             $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, Auth::id())->first();
             $data['subjects'] = $studentTerminalLog->student_terminal_log_subjects;
-//            dd($studentTerminalLog->student_terminal_log_subjects);
-//            foreach($studentTerminalLog->student_terminal_log_subjects as $subject) {
-//                dump($subject);
-//                dump($subject->academic_subject->title);
-//            }
-//            $classSubjectIds = ClassSubject::where(Constants::DBC_ACAD_CLASS_ID, $studentTerminalLog->class_term->academic_class_id)->get()->pluck(Constants::DBC_ACAD_SUBJECT_ID);
-//            $subjects = AcademicSubject::whereIn(Constants::DBC_REF_ID, $classSubjectIds)->get();
-//            $data['subjects'] = $subjects;
 
-//            dd($studentTerminalLog->class_term->academic_class_id, $classSubjectIds, $subjects);
+        }
+
+        elseif (Auth::user()->type === Constants::DBCV_USER_TYPE_STAFF) {
+            $profile = UserStaffProfile::where('user_id', Auth::id())->first();
+            $data['profile'] = $profile;
+
+//            $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, Auth::id())->first();
+//            $data['students'] = $studentTerminalLog->student_terminal_log_subjects;
+            $data['classes'] = ClassStaff::where('user_id', Auth::id())->get();//->pluck(Constants::DBC_ACAD_CLASS_ID);
+
+//            foreach ($data['classes'] as $class) {
+//                dump($class, $class->academic_class->title);
+//            }
+
+//            dd($data['classes']);
 
         }
 

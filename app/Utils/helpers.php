@@ -46,6 +46,7 @@ if (! function_exists('get_reg_code_code')) {
     }
 
 }
+
 if (! function_exists('random_chars')) {
 
     function random_chars($length = 10, $randomLowerCase = FALSE, $randomUpperCase = FALSE, $includeDigits = FALSE)
@@ -64,6 +65,35 @@ if (! function_exists('random_chars')) {
         }
 
         return $str;
+
+    }
+}
+if (! function_exists('score_grade')) {
+
+    function score_grade($score = null)
+    {
+        $grade = null;
+        if ($score < 45)
+        {
+            $grade = 'F';
+        }
+        elseif ($score<= 49 && $score >=45)
+        {
+            $grade = 'D';
+        }
+        elseif ($score <= 59 && $score >=50)
+        {
+            $grade = 'C';
+        }
+        elseif ($score <= 69 && $score >=60)
+        {
+            $grade = 'B';
+        }
+        else if ($score >= 70)
+        {
+            $grade = 'A';
+        }
+        return $grade;
 
     }
 }

@@ -149,15 +149,34 @@ class UsersController extends Controller
             $filePath = $request->avatar->storeAs($destinationPath, $filename); // it return the path at which the file is now save
 
             if ($request->avatar->isValid()) {
-//                dd('upload_sux');
-                if (Auth::user()->type === Constants::DBCV_USER_TYPE_CANDIDATE) {
                     User::where(Constants::DBC_REF_ID, Auth::id())
                         ->update([Constants::DBC_AVATAR => Constants::AVATAR_DOWNLOAD_PATH.$filename]);
-                }
             }
 
         }
 
         return redirect('home')->with('success_message', 'Profile updated!');
     }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showResult(Request $request)
+    {
+        $download = isset($request->query()['download']) ? $request->query()['download'] : null;
+
+        $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, Auth::id())->first();
+        $data['subjects'] = $studentTerminalLog->student_terminal_log_subjects;
+
+
+        $path = '/dashboard_' . Auth::user()->type . '.result';
+        return view($path, $data);
+    }
+
+
 }

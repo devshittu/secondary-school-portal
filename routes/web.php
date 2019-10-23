@@ -26,4 +26,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('user/candidate/score/{user_id}/update',  'UsersController@candidate_score_update')->name('update_candidate_score');
     Route::post('user/avatar/update',  'UsersController@avatar_update')->name('update_avatar');
     Route::post('user/candidate/accept_admission',  'UsersController@candidateAcceptAdmission')->name('accept_admission');
+    Route::get('user/student/show_result',  'UsersController@showResult')->name('show_student_result');
+    Route::get('user/staff/show_class',  'UsersController@showClass')->name('show_class');
 });

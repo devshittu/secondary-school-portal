@@ -9,20 +9,61 @@
             <div class="col-md-8">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                           aria-controls="profile" aria-selected="false">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="subjects-tab" data-toggle="tab" href="#subjects" role="tab"
+                        <a class="nav-link active" id="subjects-tab" data-toggle="tab" href="#subjects" role="tab"
                            aria-controls="subjects" aria-selected="true">Subjects</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                           aria-controls="contact" aria-selected="false">Recommended Books</a>
+                        <a class="nav-link " id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                           aria-controls="profile" aria-selected="false">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="books-tab" data-toggle="tab" href="#books" role="tab"
+                           aria-controls="books" aria-selected="false">Recommended Books</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                    <div class="tab-pane fade show active" id="subjects" role="tabpanel" aria-labelledby="subjects-tab">
+
+                        <br>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">C.A. Test (30)</th>
+                                <th scope="col">Exam (70)</th>
+                                {{--<th scope="col">Total</th>--}}
+                                {{--<th scope="col">Grade</th>--}}
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @foreach ($subjects as $key => $subject )
+                                <tr>
+                                    <th scope="row">
+                                        {{--{{ $subject->id }} --}}
+                                        {{ $key + 1 }}
+                                    </th>
+                                    <td>{{ $subject->academic_subject->title }}</td>
+                                    <td>{{ $subject->ca_test_score ?? '-' }}</td>
+                                    <td>{{ $subject->ca_exam_score ?? '-' }}</td>
+                                    {{--<td>{{ $subject->ca_total ?? '-' }}</td>--}}
+                                    {{--<td>{{ score_grade($subject->ca_total) }}</td>--}}
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
+                        <div class="row justify-content-end">
+                            <div class="col-md-8">
+                                <a href="{{ route('show_student_result') }}" class="btn btn-primary">
+                                    Show Detailed Result</a>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         {{--Profile Tab...--}}
                         <br>
 
@@ -78,59 +119,24 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <div class="tab-pane fade" id="subjects" role="tabpanel" aria-labelledby="subjects-tab">
-
+                    <div class="tab-pane fade" id="books" role="tabpanel" aria-labelledby="books-tab">
                         <br>
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th scope="col" class="text-center">#</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">C.A. Test (30)</th>
-                                <th scope="col">Exam (70)</th>
-                                <th scope="col">Total</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            @foreach ($subjects as $key => $subject )
-                                <tr>
-                                    <th scope="row">
-                                        {{--{{ $subject->id }} --}}
-                                        {{ $key + 1 }}
-                                    </th>
-                                    <td>{{ $subject->academic_subject->title }}</td>
-                                    <td>{{ $subject->ca_test_score }}</td>
-                                    <td>{{ $subject->ca_exam_score }}</td>
-                                    <td>{{ $subject->ca_total }}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                        <br>
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th scope="col" colspan="2" class="text-center">Exam Schedule</th>
-                                {{--<th scope="col">First</th>--}}
+                                <th scope="col" class="text-center">Title</th>
+                                <th scope="col">ISBN</th>
+                                <th scope="col">Publication date</th>
+                                <th scope="col">Price</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <th scope="row">Exam Date</th>
-                                {{--<td>{{ $user['']}} 28-Dec-2019</td>--}}
+                                <th scope="row">MacMillian English</th>
+                                <td>28-Dec-2019</td>
+                                <td>28-122019</td>
+                                <td>#1900</td>
                             </tr>
-                            <tr>
-                                <th scope="row">Time</th>
-                                {{--<td>{{ $user['']}} 12:00 pm</td>--}}
-                            </tr>
-                            {{--<tr>
-                                <th scope="row"></th>
-                                <td>{{ $user['']}}</td>
-                            </tr>--}}
                             </tbody>
                         </table>
                     </div>
