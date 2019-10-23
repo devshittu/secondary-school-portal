@@ -32,6 +32,9 @@ class Constants
     public const DBC_ACAD_CLASS_ID = 'academic_class_id';
     public const DBC_ENROLL_CLASS_ID = 'enrollment_class_id';
     public const DBC_CLASS_TERM_ID = 'class_term_id';
+    public const DBC_CLASS_SUBJECT_ID = 'class_subject_id';
+    public const DBC_CA_TEST_SCORE = 'ca_test_score';
+    public const DBC_CA_EXAM_SCORE = 'ca_exam_score';
     public const DBC_CAN_APPLY = 'can_apply';
     public const DBC_REF_ID = 'id';
     public const DBC_REF_REG_CODE = 'reg_code';
@@ -55,6 +58,10 @@ class Constants
 //    const AVATAR_UPLOAD_PATH = 'public/avatar/';
     const AVATAR_UPLOAD_PATH = 'public/avatar';
     const AVATAR_DOWNLOAD_PATH = 'avatar/';
+
+
+
+    const DBC_STD_TERMINAL_LOG_ID = 'student_terminal_log_id';
 
 
 }

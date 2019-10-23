@@ -89,15 +89,23 @@
                                 <th scope="col">Title</th>
                                 <th scope="col">C.A. Test (30)</th>
                                 <th scope="col">Exam (70)</th>
+                                <th scope="col">Total</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mathematics</td>
-                                <td>20</td>
-                                <td>59</td>
-                            </tr>
+
+                            @foreach ($subjects as $key => $subject )
+                                <tr>
+                                    <th scope="row">
+                                        {{--{{ $subject->id }} --}}
+                                        {{ $key + 1 }}
+                                    </th>
+                                    <td>{{ $subject->academic_subject->title }}</td>
+                                    <td>{{ $subject->ca_test_score }}</td>
+                                    <td>{{ $subject->ca_exam_score }}</td>
+                                    <td>{{ $subject->ca_total }}</td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserStudentTransitionLogsTable extends Migration
+class CreateStudentTerminalLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateUserStudentTransitionLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_student_transition_logs', function (Blueprint $table) {
+        Schema::create('student_terminal_logs', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger(Constants::DBC_USER_ID)->index();
             $table->unsignedInteger(Constants::DBC_ACAD_SESS_ID)->index();
@@ -39,7 +39,6 @@ class CreateUserStudentTransitionLogsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamps();
-
         });
     }
 
@@ -50,6 +49,6 @@ class CreateUserStudentTransitionLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_student_transition_logs');
+        Schema::dropIfExists('student_terminal_logs');
     }
 }

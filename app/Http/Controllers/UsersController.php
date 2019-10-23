@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\ClassSubject;
 use App\ClassTerm;
+use App\StudentTerminalLog;
+use App\StudentTerminalLogSubject;
 use App\User;
 use App\UserCandidateProfile;
 use App\UserStudentProfile;
@@ -89,14 +92,34 @@ class UsersController extends Controller
         if (!$createStudentProfile)  DB::rollBack();
         $classTerm = ClassTerm::where('academic_class_id', $candidateProfile->academic_class_id)->first();
 
-        $createStudentTransitionLog = UserStudentTransitionLog::create([
+        $createStudentTerminalLog = StudentTerminalLog::create([
             'user_id' => Auth::id(),
             Constants::DBC_ACAD_SESS_ID => $candidateProfile->academic_session_id,
             Constants::DBC_CLASS_TERM_ID => $classTerm->id,
         ]);
 
-        if (!$createStudentTransitionLog)  DB::rollBack();
+        if (!$createStudentTerminalLog)  DB::rollBack();
+
+
+        $classSubjectIds = ClassSubject::where(Constants::DBC_ACAD_CLASS_ID, $candidateProfile->academic_class_id)->get()->pluck(Constants::DBC_ACAD_SUBJECT_ID);
+
+        $inputData = array();
+
+        for($i = 0; $i < count($classSubjectIds); $i++) {
+            $inputData[$i] = array(
+                Constants::DBC_STD_TERMINAL_LOG_ID => $createStudentTerminalLog->id,
+                Constants::DBC_ACAD_SUBJECT_ID=> $classSubjectIds[$i],
+                'created_at'=> now(),
+            );
+        }
+
+        $createStudentTerminalLogSubjects = StudentTerminalLogSubject::insert($inputData); // Eloquent approach
+
+//        dd('$classSubjectIds:// ', $classSubjectIds);
+
+        if (!$createStudentTerminalLogSubjects) DB::rollBack();
         $affectedRows = UserCandidateProfile::where('user_id', Auth::id())->delete();
+        if (!$affectedRows) DB::rollBack();
 
 
         DB::commit();
