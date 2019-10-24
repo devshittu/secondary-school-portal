@@ -100,6 +100,7 @@ class UsersController extends Controller
 
         if (!$createStudentTerminalLog)  DB::rollBack();
 
+        // get the subjects belonging to a class here.
 
         $classSubjectIds = ClassSubject::where(Constants::DBC_ACAD_CLASS_ID, $candidateProfile->academic_class_id)->get()->pluck(Constants::DBC_ACAD_SUBJECT_ID);
 
@@ -177,6 +178,5 @@ class UsersController extends Controller
         $path = '/dashboard_' . Auth::user()->type . '.result';
         return view($path, $data);
     }
-
 
 }

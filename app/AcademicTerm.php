@@ -14,4 +14,10 @@ class AcademicTerm extends Model
     {
         return $this->hasOne('App\SystemSetting');
     }
+
+    public function class_term()
+    {
+        return $this->hasMany(ClassTerm::class);
+    }
+
 }

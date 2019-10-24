@@ -26,8 +26,13 @@ class DatabaseSeeder extends Seeder
         factory('App\UserCandidateProfile', 5)->create();
         factory('App\UserStaffProfile', 5)->create();
         factory('App\UserStudentProfile', 5)->create();
-        $this->call(StudentTerminalLogsTableSeeder::class);
+
         $this->call(ClassStaffTableSeeder::class);
+
+
+        $this->call(StudentTerminalLogsTableSeeder::class);
+
+        $this->call(StudentTerminalLogSubjectsTableSeeder::class);
 
     }
 }
