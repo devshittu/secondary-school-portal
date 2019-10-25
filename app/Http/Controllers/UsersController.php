@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\ClassStaff;
 use App\ClassSubject;
 use App\ClassTerm;
 use App\StudentTerminalLog;
 use App\StudentTerminalLogSubject;
+use App\SystemSetting;
 use App\User;
 use App\UserCandidateProfile;
+use App\UserStaffProfile;
 use App\UserStudentProfile;
 use App\UserStudentTransitionLog;
 use App\Utils\Constants;
@@ -177,6 +180,52 @@ class UsersController extends Controller
 
         $path = '/dashboard_' . Auth::user()->type . '.result';
         return view($path, $data);
+    }
+
+
+
+    /**
+     * Delete the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteUserAdmin(Request $request, $id)
+    {
+        $user = User::whereId($id)->first();
+        $user->delete();
+        return redirect()->back()->with('success_message', 'Deleted successfully!.');
+    }
+
+
+    /**
+     * Delete the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function assignDutyToStaffAdmin(Request $request, $user_id)
+    {
+        $duties = $request->duty;
+//        override
+        ClassStaff::where('user_id', $user_id)->delete();
+        for ($i = 0; $i < count($duties); $i++) {
+            $classStaff = ClassStaff::where('user_id', $user_id);
+            $classStaff = $classStaff->where('academic_class_id', $duties[$i])->first();
+            if(!is_null($classStaff)) break;
+            else {
+                if (!is_null($duties[$i])) {
+                    ClassStaff::create([
+                        Constants::DBC_USER_ID => $user_id,
+                        Constants::DBC_ACAD_SESS_ID => SystemSetting::find(1)->academic_session_id,
+                        Constants::DBC_ACAD_CLASS_ID => $duties[$i]
+                    ]);
+                }
+            }
+        }
+        return redirect()->back()->with('success_message', 'Assigned successfully!.');
     }
 
 }

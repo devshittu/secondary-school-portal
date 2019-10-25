@@ -4,11 +4,13 @@ namespace App;
 
 use App\Http\Traits\FullTextSearch;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    use SoftDeletes;
 
     use Notifiable, FullTextSearch;
 
@@ -67,6 +69,13 @@ class User extends Authenticatable
     public function staff_profile()
     {
         return $this->hasOne('App\UserStaffProfile');
+    }
+    /**
+     * Get the staff record associated with the user if it is staff .
+     */
+    public function class_staff()
+    {
+        return $this->hasMany('App\ClassStaff');
     }
 
     /**

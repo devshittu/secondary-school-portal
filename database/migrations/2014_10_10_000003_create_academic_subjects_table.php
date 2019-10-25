@@ -17,6 +17,7 @@ class CreateAcademicSubjectsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->char('code_name', 3)->unique(true);
+            $table->softDeletes();
         });
     }
 

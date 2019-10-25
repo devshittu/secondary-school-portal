@@ -31,6 +31,7 @@ class CreateClassSubjectTable extends Migration
                 ->on('academic_subjects')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

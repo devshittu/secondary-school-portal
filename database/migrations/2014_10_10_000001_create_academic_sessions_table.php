@@ -17,6 +17,7 @@ class CreateAcademicSessionsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->char('code_name', 7)->unique(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

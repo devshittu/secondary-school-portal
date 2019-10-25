@@ -4,9 +4,11 @@ namespace App;
 
 use App\Utils\Constants;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AcademicClass extends Model
 {
+    use SoftDeletes;
     protected $table = 'academic_classes';
     protected $fillable = [];
 

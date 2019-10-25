@@ -23,6 +23,7 @@ class CreateUserCandidateProfilesTable extends Migration
             $table->unsignedInteger(Constants::DBC_ACAD_SESS_ID)->index();
             $table->unsignedInteger(Constants::DBC_EXAM_SCORE)->index()->nullable();
             $table->boolean(Constants::DBC_IS_ADMITTED)->index()->default(0);
+            $table->softDeletes();
             $table->timestamps();
 
 

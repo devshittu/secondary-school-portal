@@ -39,6 +39,7 @@ class CreateUserStudentProfilesTable extends Migration
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
             $table->boolean('has_paid')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

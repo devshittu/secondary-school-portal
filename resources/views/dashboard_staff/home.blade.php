@@ -8,7 +8,7 @@
 
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="market-updates">
+                {{--<div class="market-updates">
                     <div class="col-md-6 market-update-gd">
                         <div class="market-update-block clr-block-2">
                             <div class="col-md-4 market-update-right">
@@ -29,12 +29,12 @@
                             <div class="col-md-8 market-update-left">
                                 <h4>Classes</h4>
                                 <h3>1</h3>
-                                {{--<p>Other hand, we denounce</p>--}}
+                                --}}{{--<p>Other hand, we denounce</p>--}}{{--
                             </div>
                             <div class="clearfix"> </div>
                         </div>
                     </div>
-                    {{--<div class="col-md-3 market-update-gd">
+                    --}}{{--<div class="col-md-3 market-update-gd">
                         <div class="market-update-block clr-block-3">
                             <div class="col-md-4 market-update-right">
                                 <i class="fa fa-usd"></i>
@@ -59,9 +59,9 @@
                             </div>
                             <div class="clearfix"> </div>
                         </div>
-                    </div>--}}
+                    </div>--}}{{--
                     <div class="clearfix"> </div>
-                </div>
+                </div>--}}
 
                 <br>
                 <table class="table table-striped">
@@ -71,9 +71,6 @@
                         <th scope="col">Title</th>
                         <th scope="col">Description</th>
                         <th scope="col">Action</th>
-                        {{--<th scope="col">Exam (70)</th>--}}
-                        {{--<th scope="col">Total</th>--}}
-                        {{--<th scope="col">Grade</th>--}}
                     </tr>
                     </thead>
                     <tbody>
@@ -87,9 +84,6 @@
                             <td>{{ $class->academic_class->title }}</td>
                             <td>{{ $class->academic_class->code_name ?? '-' }}</td>
                             <td><a href="{{ route('show_class', [\App\Utils\Constants::DBC_ACAD_CLASS_ID => $class->academic_class->id]) }}"> {{ 'View' }}</a></td>
-                            {{--                                    <td>{{ $class->ca_exam_score ?? '-' }}</td>--}}
-                            {{--<td>{{ $subject->ca_total ?? '-' }}</td>--}}
-                            {{--<td>{{ score_grade($subject->ca_total) }}</td>--}}
                         </tr>
                     @endforeach
                     </tbody>

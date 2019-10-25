@@ -23,7 +23,6 @@ class StudentTerminalLogSubjectsTableSeeder extends Seeder
 
         for ($i = 0; $i < count($allStudentTerminalLogIds); $i++) {
             $allStudentTerminalLogs = \App\StudentTerminalLog::whereId($allStudentTerminalLogIds[$i])->first();
-//            dd($allStudentTerminalLogIds);
             $allClassSubjectIds = ClassSubject::where(Constants::DBC_ACAD_CLASS_ID, $allStudentTerminalLogs->class_term->academic_class_id)
                 ->get()
                 ->pluck(Constants::DBC_ACAD_SUBJECT_ID);
@@ -34,7 +33,7 @@ class StudentTerminalLogSubjectsTableSeeder extends Seeder
                 $caTest = rand(4, 30);
                 $caExam = rand(15, 70);
 
-                $query .= "($allStudentTerminalLogId, $allClassSubjectId, $caTest, $caExam, $dateNow),";
+                $query .= "($allStudentTerminalLogId, $allClassSubjectId, $caExam, $caTest, $dateNow),";
             }
         }
 

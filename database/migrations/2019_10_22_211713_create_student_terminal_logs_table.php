@@ -38,6 +38,7 @@ class CreateStudentTerminalLogsTable extends Migration
                 ->on('class_terms')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

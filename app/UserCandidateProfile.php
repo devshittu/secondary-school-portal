@@ -4,9 +4,11 @@ namespace App;
 
 use App\Utils\Constants;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserCandidateProfile extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['user_id', Constants::DBC_ACAD_CLASS_ID, Constants::DBC_ACAD_SESS_ID, Constants::DBC_AVATAR,];
     /**
      * The attributes that should be mutated to dates.

@@ -23,6 +23,7 @@ class CreateUserAdminProfilesTable extends Migration
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

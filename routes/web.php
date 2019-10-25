@@ -30,4 +30,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('user/staff/show_class',  'HomeController@showClass')->name('show_class');
     Route::get('user/staff/show_student_result/{student_id}',  'HomeController@showStudentResult')->name('show_student_result_staff');
     Route::post('user/staff/update_student_result/{student_id}/{stl_subject_id}',  'HomeController@updateStudentResultStaff')->name('update_student_result_staff');
+    Route::post('user/admin/delete_user/{user_id}',  'UsersController@deleteUserAdmin')->name('delete_user');
+    Route::post('user/admin/assign_duty/{user_id}',  'UsersController@assignDutyToStaffAdmin')->name('assign_duty_to_staff_admin');
 });

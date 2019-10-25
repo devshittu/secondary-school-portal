@@ -32,6 +32,7 @@ class CreateStudentTerminalLogSubjectsTable extends Migration
                 ->on('academic_subjects')
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

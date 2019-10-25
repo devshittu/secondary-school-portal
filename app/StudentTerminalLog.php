@@ -4,10 +4,12 @@ namespace App;
 
 use App\Utils\Constants;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StudentTerminalLog extends Model
 {
 
+    use SoftDeletes;
     protected $fillable = [Constants::RQ_USER_ID, Constants::DBC_CLASS_TERM_ID, Constants::DBC_ACAD_SESS_ID];
 
     // belongs to class term id

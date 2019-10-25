@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StudentTerminalLogSubject extends Model
 {
+    use SoftDeletes;
     /**
      * Get the user_student_transition_log for the user.
      */

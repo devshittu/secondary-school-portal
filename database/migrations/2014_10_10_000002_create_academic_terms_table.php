@@ -17,6 +17,7 @@ class CreateAcademicTermsTable extends Migration
             $table->increments('id');
             $table->string('title'); //first term ... student_term, session,
             $table->char(\App\Utils\Constants::DBC_CODE_NAME, 6)->unique(); // 1st...
+            $table->softDeletes();
             $table->timestamps();
         });
     }

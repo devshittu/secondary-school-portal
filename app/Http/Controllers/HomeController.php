@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\AcademicClass;
+use App\AcademicSession;
 use App\AcademicSubject;
+use App\AcademicTerm;
 use App\ClassStaff;
 use App\ClassSubject;
 use App\StudentTerminalLog;
@@ -47,6 +49,10 @@ class HomeController extends Controller
             $data['profile'] = $profile;
             $data['users'] = $student;
             $data['user'] = $user;
+            $data['staffs'] = UserStaffProfile::all();
+            $data['academic_classes'] = AcademicClass::all();
+            $data['academic_sessions'] = AcademicSession::all();
+            $data['academic_terms'] = AcademicTerm::all();
         }
         elseif (Auth::user()->type === 'candidate') {
             $profile = UserCandidateProfile::where('user_id', Auth::id())->first();
@@ -66,8 +72,6 @@ class HomeController extends Controller
             $profile = UserStaffProfile::where('user_id', Auth::id())->first();
             $data['profile'] = $profile;
 
-//            $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, Auth::id())->first();
-//            $data['students'] = $studentTerminalLog->student_terminal_log_subjects;
             $data['classes'] = ClassStaff::where('user_id', Auth::id())->get();//->pluck(Constants::DBC_ACAD_CLASS_ID);
 
 //            foreach ($data['classes'] as $class) {

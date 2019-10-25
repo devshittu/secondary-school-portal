@@ -19,6 +19,7 @@ class CreateAcademicClassesTable extends Migration
             $table->string('title'); //JSS1-SSS3
             $table->char('code_name', 6)->unique(true);
             $table->boolean(Constants::DBC_CAN_APPLY)->default(false);
+            $table->softDeletes();
         });
     }
 

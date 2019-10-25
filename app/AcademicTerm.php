@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AcademicTerm extends Model
 {
+    use SoftDeletes;
 
     /**
      * Get the current system settings that owns the setting.

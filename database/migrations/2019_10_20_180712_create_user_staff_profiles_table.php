@@ -22,6 +22,7 @@ class CreateUserStaffProfilesTable extends Migration
                 ->on('users')
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
