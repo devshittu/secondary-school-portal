@@ -13,7 +13,6 @@ class SystemSettingsTableSeeder extends Seeder
     public function run()
     {
         $dateNow = '\''.now().'\'';
-        $dateNow = '\''.now().'\'';
         $lastAcadSessionId = DB::table('academic_sessions')->latest('id')->first()->id;
 //        dump('$lastAcadSessionId:// ',$lastAcadSessionId);
 

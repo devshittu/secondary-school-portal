@@ -8,6 +8,7 @@ use App\AcademicSubject;
 use App\AcademicTerm;
 use App\ClassStaff;
 use App\ClassSubject;
+use App\ClassTerm;
 use App\StudentTerminalLog;
 use App\StudentTerminalLogSubject;
 use App\User;
@@ -63,7 +64,7 @@ class HomeController extends Controller
             $profile = UserStudentProfile::where('user_id', Auth::id())->first();
             $data['profile'] = $profile;
 
-            $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, Auth::id())->first();
+            $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, Auth::id())->latest('id')->first();
             $data['subjects'] = $studentTerminalLog->student_terminal_log_subjects;
 
         }
@@ -73,6 +74,7 @@ class HomeController extends Controller
             $data['profile'] = $profile;
 
             $data['classes'] = ClassStaff::where('user_id', Auth::id())->get();//->pluck(Constants::DBC_ACAD_CLASS_ID);
+
 
 //            foreach ($data['classes'] as $class) {
 //                dump($class, $class->academic_class->title);
@@ -98,11 +100,16 @@ class HomeController extends Controller
     public function showClass(Request $request)
     {
         $academicClassId = isset($request->query()[Constants::DBC_ACAD_CLASS_ID ]) ? $request->query()[Constants::DBC_ACAD_CLASS_ID ] : null;
+        $academicSessionId = isset($request->query()[Constants::DBC_ACAD_SESS_ID ]) ? $request->query()[Constants::DBC_ACAD_SESS_ID ] : null;
+
         $getClassById = AcademicClass::whereId($academicClassId)->first();
 
+
 //        dd($getClassById, $getClassById->user_student_profiles);
-//
-//        $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, Auth::id())->first();
+//        $studentTerminalLog = StudentTerminalLog::where(Constants::DBC_ACAD_SESS_ID, $academicSessionId)->first();
+//        $classTerm = ClassTerm::where(Constants::DBC_ACAD_CLASS_ID, $academicClassId)->get();
+//        dd($classTerm->student_terminal_log);
+//        get class of staff from ClassStaff and then
 
         $data['class'] = $getClassById;
         $data['class_students'] = $getClassById->user_student_profiles;
@@ -136,7 +143,7 @@ class HomeController extends Controller
             }
         }*/
 
-        $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, $student_id)->first();
+        $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, $student_id)->latest('id')->first();
 //        dd($studentTerminalLog->student_terminal_log_subjects);
         $data['subjects'] = $studentTerminalLog->student_terminal_log_subjects;
         $data['result_owner'] = User::whereId($student_id)->whereType(Constants::DBCV_USER_TYPE_STUDENT)->first();
@@ -160,7 +167,7 @@ class HomeController extends Controller
 
 //        $studentTerminalLog = StudentTerminalLog::whereId($stl_subject_id)->first();
 
-        $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, $student_id)->first();
+        $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, $student_id)->latest('id')->first();
         $studentTerminalLogSubject = StudentTerminalLogSubject::where('student_terminal_log_id', $studentTerminalLog->id)
             ->where(Constants::DBC_ACAD_SUBJECT_ID, $stl_subject_id)->first();
         $studentTerminalLogSubject->ca_test_score = $request->ca_test_score;

@@ -22,6 +22,7 @@ class Constants
     public const DBC_TITLE = 'title';
     public const DBC_EXAM_SCORE = 'exam_score';
     public const DBC_IS_ADMITTED = 'is_admitted';
+    public const DBC_HAS_TRANSIT = 'has_transit';
     public const DBC_EXAM_DATETIME = 'exam_datetime';
     public const DBC_ACAD_SESS_ID = 'academic_session_id';
     public const DBC_ENROLL_SESS_ID = 'enrollment_session_id';

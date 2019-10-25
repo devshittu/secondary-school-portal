@@ -7,6 +7,7 @@ use App\AcademicSession;
 use App\AcademicTerm;
 use App\SystemSetting;
 use App\UserCandidateProfile;
+use App\UserStudentProfile;
 use App\Utils\Constants;
 use Illuminate\Http\Request;
 
@@ -33,8 +34,8 @@ class SettingsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id = 1)
@@ -42,19 +43,35 @@ class SettingsController extends Controller
 //        dd($request);
         $settings = SystemSetting::find($id);
 
-        $settings->school_name = $request->school_name;
-        $settings->academic_session_id = $request->academic_session;
-        $settings->academic_term_id = $request->academic_term;
+        $oldAcadTerm = $settings->academic_term_id;
+        $oldAcadSess = $settings->academic_session_id;
+        $newAcadTerm = (int)$request->academic_term;
+        $newAcadSess = (int)$request->academic_session;
 
-        $settings->save();
-        return redirect('settings')->with('success_message', 'Settings Saved!');
+        if ($oldAcadSess == $newAcadSess or $oldAcadSess < $newAcadSess) {
+            if ($oldAcadTerm < $newAcadTerm) {
+                $settings->school_name = $request->school_name;
+                $settings->academic_session_id = $request->academic_session;
+                $settings->academic_term_id = $request->academic_term;
+
+                $settings->save();
+
+
+                UserStudentProfile::where('deleted_at', null)->update(['has_transit' => false]);
+
+
+                return redirect('settings')->with('success_message', 'Settings Saved!');
+            } else return redirect('settings')->with('failure_message', 'Oops! Only a more recent term is allowed.');
+        } else return redirect('settings')->with('failure_message', 'Oops! Only the same session or a more recent session is allowed. This is for progressive movement of the terminal log');
+
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function exam_update(Request $request, $id = 1)
@@ -75,7 +92,7 @@ class SettingsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

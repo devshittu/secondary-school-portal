@@ -17,4 +17,8 @@ class ClassTerm extends Model
     {
         return $this->belongsTo('App\AcademicTerm');
     }
+    public function student_terminal_log()
+    {
+        return $this->belongsTo('App\StudentTerminalLog');
+    }
 }

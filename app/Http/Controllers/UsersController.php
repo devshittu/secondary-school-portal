@@ -40,14 +40,13 @@ class UsersController extends Controller
         $candidateProfile = UserCandidateProfile::where('user_id', $id);
 
         $messagePlus = '';
-        if(!is_null($offer))
-        {
+        if (!is_null($offer)) {
             // update score for candidate for is the current session from settings
             $candidateProfile
                 ->update([
                     'exam_score' => $request->score,
                     Constants::DBC_IS_ADMITTED => $offer
-                    ]);
+                ]);
             $messagePlus = 'Has been offered admission. Tell them to log in to their account and accept admission. ';
         } else $candidateProfile->update(['exam_score' => $request->score]);
 
@@ -70,29 +69,29 @@ class UsersController extends Controller
         DB::beginTransaction();
 
         $oldFileName = Auth::user()->avatar;
-        $newFileName = 'avatar/'. get_reg_code_prefix(Constants::DBCV_USER_TYPE_STUDENT) . substr(Auth::user()->avatar, 11);
+        $newFileName = 'avatar/' . get_reg_code_prefix(Constants::DBCV_USER_TYPE_STUDENT) . substr(Auth::user()->avatar, 11);
 
         if (!is_null($oldFileName)) {
-            $rename = rename(storage_path('app/public/'.$oldFileName), storage_path('app/public/'.$newFileName));
-            if (!$rename)  DB::rollBack();
+            $rename = rename(storage_path('app/public/' . $oldFileName), storage_path('app/public/' . $newFileName));
+            if (!$rename) DB::rollBack();
 
         } else $newFileName = null;
 
         $updateUserId = User::where('id', Auth::id())
             ->update([
                 Constants::DBC_USER_TYPE => Constants::DBCV_USER_TYPE_STUDENT,
-                Constants::DBC_REF_REG_CODE => get_reg_code_prefix(Constants::DBCV_USER_TYPE_STUDENT).  get_reg_code_code(Auth::user()->reg_code),
+                Constants::DBC_REF_REG_CODE => get_reg_code_prefix(Constants::DBCV_USER_TYPE_STUDENT) . get_reg_code_code(Auth::user()->reg_code),
                 'avatar' => $newFileName,
             ]);
 
-        if(!$updateUserId) DB::rollBack();
+        if (!$updateUserId) DB::rollBack();
 
         $createStudentProfile = UserStudentProfile::create([
             'user_id' => Auth::id(),
             Constants::DBC_ENROLL_SESS_ID => $candidateProfile->academic_session_id,
             Constants::DBC_ENROLL_CLASS_ID => $candidateProfile->academic_class_id,
-            ]);
-        if (!$createStudentProfile)  DB::rollBack();
+        ]);
+        if (!$createStudentProfile) DB::rollBack();
         $classTerm = ClassTerm::where('academic_class_id', $candidateProfile->academic_class_id)->first();
 
         $createStudentTerminalLog = StudentTerminalLog::create([
@@ -101,7 +100,7 @@ class UsersController extends Controller
             Constants::DBC_CLASS_TERM_ID => $classTerm->id,
         ]);
 
-        if (!$createStudentTerminalLog)  DB::rollBack();
+        if (!$createStudentTerminalLog) DB::rollBack();
 
         // get the subjects belonging to a class here.
 
@@ -109,11 +108,11 @@ class UsersController extends Controller
 
         $inputData = array();
 
-        for($i = 0; $i < count($classSubjectIds); $i++) {
+        for ($i = 0; $i < count($classSubjectIds); $i++) {
             $inputData[$i] = array(
                 Constants::DBC_STD_TERMINAL_LOG_ID => $createStudentTerminalLog->id,
-                Constants::DBC_ACAD_SUBJECT_ID=> $classSubjectIds[$i],
-                'created_at'=> now(),
+                Constants::DBC_ACAD_SUBJECT_ID => $classSubjectIds[$i],
+                'created_at' => now(),
             );
         }
 
@@ -129,6 +128,73 @@ class UsersController extends Controller
         DB::commit();
 
         return redirect('home')->with('success_message', 'Great! Your account has been successfully converted to full student account.');
+    }
+
+    /**
+     * This is where we'll convert the authenticated candidate to full student
+     * We do this by simply copying over the candidate details in to student tb
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function studentAcceptMigration(Request $request)
+    {
+        $candidateProfile = UserStudentProfile::where('user_id', Auth::id())->first();
+
+
+        $lastSTLog = StudentTerminalLog::where(Constants::DBC_USER_ID, Auth::id())->latest('id')->first();
+        $lastClassTerm = ClassTerm::latest('id')->first();
+        $settings = SystemSetting::find(1);
+
+        if ($lastSTLog->class_term_id == $lastClassTerm->id) {
+            return redirect('home')->with('success_message', 'CongratulationsThis migration won\'t be performed as you are now a graduate.');
+        } else {
+            DB::beginTransaction();
+
+
+            $createStudentTerminalLog = StudentTerminalLog::create([
+                'user_id' => Auth::id(),
+                Constants::DBC_ACAD_SESS_ID => $settings->academic_session_id,
+                Constants::DBC_CLASS_TERM_ID => $lastSTLog->class_term_id + 1,
+            ]);
+
+            if (!$createStudentTerminalLog) DB::rollBack();
+
+            // get the subjects belonging to a class here.
+
+            $classSubjectIds = ClassSubject::where(Constants::DBC_ACAD_CLASS_ID, $lastClassTerm->academic_class_id)->get()->pluck(Constants::DBC_ACAD_SUBJECT_ID);
+
+            $inputData = array();
+
+            for ($i = 0; $i < count($classSubjectIds); $i++) {
+                $inputData[$i] = array(
+                    Constants::DBC_STD_TERMINAL_LOG_ID => $createStudentTerminalLog->id,
+                    Constants::DBC_ACAD_SUBJECT_ID => $classSubjectIds[$i],
+                    'created_at' => now(),
+                );
+            }
+
+            $createStudentTerminalLogSubjects = StudentTerminalLogSubject::insert($inputData); // Eloquent approach
+
+            if (!$createStudentTerminalLogSubjects) DB::rollBack();
+
+
+            $updateUserId = UserStudentProfile::where('user_id', Auth::id())
+                ->update([
+                    Constants::DBC_HAS_TRANSIT => true,
+                ]);
+
+            if (!$updateUserId) DB::rollBack();
+//            dd($lastSTLog, $lastClassTerm);
+
+            DB::commit();
+
+            return redirect('home')->with('success_message', 'Great! Your account has been successfully migrated.');
+
+        }
+
+
     }
 
     /**
@@ -153,8 +219,8 @@ class UsersController extends Controller
             $filePath = $request->avatar->storeAs($destinationPath, $filename); // it return the path at which the file is now save
 
             if ($request->avatar->isValid()) {
-                    User::where(Constants::DBC_REF_ID, Auth::id())
-                        ->update([Constants::DBC_AVATAR => Constants::AVATAR_DOWNLOAD_PATH.$filename]);
+                User::where(Constants::DBC_REF_ID, Auth::id())
+                    ->update([Constants::DBC_AVATAR => Constants::AVATAR_DOWNLOAD_PATH . $filename]);
             }
 
         }
@@ -174,14 +240,57 @@ class UsersController extends Controller
     {
         $download = isset($request->query()['download']) ? $request->query()['download'] : null;
 
-        $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, Auth::id())->first();
+        $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, Auth::id())->latest('id')->first();
         $data['subjects'] = $studentTerminalLog->student_terminal_log_subjects;
+        $data['student_terminal_log'] = $studentTerminalLog;
 
 
         $path = '/dashboard_' . Auth::user()->type . '.result';
         return view($path, $data);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showOldResult(Request $request)
+    {
+        $sessionId = isset($request->query()[Constants::DBC_ACAD_SESS_ID]) ? $request->query()[Constants::DBC_ACAD_SESS_ID] : null;
+        $classTermId = isset($request->query()[Constants::DBC_CLASS_TERM_ID]) ? $request->query()[Constants::DBC_CLASS_TERM_ID] : null;
+
+        $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, Auth::id())
+            ->where(Constants::DBC_CLASS_TERM_ID, $classTermId)
+            ->first();
+        $data['subjects'] = $studentTerminalLog->student_terminal_log_subjects;
+        $data['student_terminal_log'] = $studentTerminalLog;
+
+
+        $path = '/dashboard_' . Auth::user()->type . '.result';
+        return view($path, $data);
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function listStudentResultPast(Request $request)
+    {
+
+        $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, Auth::id())->get();
+//        dump($studentTerminalLog);
+        $data['terminal_logs'] = $studentTerminalLog;
+
+
+        $path = '/dashboard_' . Auth::user()->type . '.old_reports';
+        return view($path, $data);
+    }
 
 
     /**
@@ -210,11 +319,11 @@ class UsersController extends Controller
     {
         $duties = $request->duty;
 //        override
-        ClassStaff::where('user_id', $user_id)->delete();
+        ClassStaff::where('user_id', $user_id)->forceDelete();
         for ($i = 0; $i < count($duties); $i++) {
             $classStaff = ClassStaff::where('user_id', $user_id);
             $classStaff = $classStaff->where('academic_class_id', $duties[$i])->first();
-            if(!is_null($classStaff)) break;
+            if (!is_null($classStaff)) break;
             else {
                 if (!is_null($duties[$i])) {
                     ClassStaff::create([

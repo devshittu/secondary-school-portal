@@ -9,11 +9,13 @@
         <br>
         <h3 class="text-center">Terminal Report</h3>
         <br>
+        <h3 class="text-center">{{ $student_terminal_log->class_term->academic_class->title }}  ({{ $student_terminal_log->class_term->academic_class->code_name }})</h3>
+        <br>
         <div class="card">
             <div class="card-header">
                 Academic Session
-                <strong>{{ $settings->academic_session->title }}</strong>
-                <span class="float-right"> <strong>{{ $settings->academic_term->title }}</strong> Term</span>
+                <strong> {{ $student_terminal_log->academic_session->title }}</strong>
+                <span class="float-right"> <strong>{{ $student_terminal_log->class_term->academic_term->title }}</strong> Term</span>
 
             </div>
             <div class="card-body">

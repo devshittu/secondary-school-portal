@@ -5,6 +5,31 @@
 @section('content')
 
     <div class="container">
+        @if (!Auth::user()->student_profile->has_transit)
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header alert-info">Notification</div>
+
+                        <div class="card-body">
+                            Your term has been migrated, to update your profile click the Migrate button below to set up your profile for the next term.
+                        </div>
+                        <div class="card-footer">
+
+                            <form id="accept-terminal-migration-form" action="{{ route('accept_terminal_migration') }}" method="POST"
+                                  style="display: none;">
+                                @csrf
+                            </form>
+                            <button type="button" class="btn btn-success"
+                                    onclick="event.preventDefault();
+                                        document.getElementById('accept-terminal-migration-form' ).submit();">
+                                Migrate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        @endif
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -56,9 +81,13 @@
                         </table>
 
                         <div class="row justify-content-end">
-                            <div class="col-md-8">
-                                <a href="{{ route('show_student_result') }}" class="btn btn-primary">
+                            <div class="col-md-6  justify-content-end">
+                                <a href="{{ route('show_student_result') }}" class="btn btn-primary pull-left">
                                     Show Detailed Result</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="{{ route('show_student_result_past') }}" class="btn btn-dark pull-right">
+                                    Show Old Reports</a>
                             </div>
                         </div>
                         <br>

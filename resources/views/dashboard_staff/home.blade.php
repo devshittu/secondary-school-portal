@@ -70,6 +70,7 @@
                         <th scope="col" class="text-center">#</th>
                         <th scope="col">Title</th>
                         <th scope="col">Description</th>
+                        <th scope="col">Session</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
@@ -83,7 +84,11 @@
                             </th>
                             <td>{{ $class->academic_class->title }}</td>
                             <td>{{ $class->academic_class->code_name ?? '-' }}</td>
-                            <td><a href="{{ route('show_class', [\App\Utils\Constants::DBC_ACAD_CLASS_ID => $class->academic_class->id]) }}"> {{ 'View' }}</a></td>
+                            <td>{{ $class->academic_session->code_name ?? '-' }}</td>
+                            <td><a href="{{ route('show_class', [
+                            \App\Utils\Constants::DBC_ACAD_CLASS_ID => $class->academic_class->id,
+                            \App\Utils\Constants::DBC_ACAD_SESS_ID => $class->academic_session->id
+                            ]) }}"> {{ 'View' }}</a></td>
                         </tr>
                     @endforeach
                     </tbody>
