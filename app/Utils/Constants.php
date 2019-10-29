@@ -16,6 +16,7 @@ class Constants
 
     //NAME OF THE COLUMNS IN THE DATABASE
     public const DBC_USER_ID = 'user_id';
+    public const DBC_USER_DOB = 'date_of_birth';
     public const DBC_USER_TYPE = 'type';
     public const DBC_CODE_NAME = 'code_name';
     public const DBC_SCHOOL_NAME = 'school_name';

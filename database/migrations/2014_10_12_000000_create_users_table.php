@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->enum('type', Constants::AV_USER_TYPE)->default(Constants::DBCV_USER_TYPE_CANDIDATE);
             $table->enum('gender', ['female', 'male'])->default(null)->nullable(true);
             $table->string(Constants::DBC_AVATAR)->index()->nullable();
+            $table->date(Constants::DBC_USER_DOB)->nullable()->default(null);
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

@@ -36,5 +36,6 @@ $factory->define(User::class, function (Faker $faker) use ($autoIncrement) {
         'type' => $selectedUserType,
         'gender' => $selectedGenderType,
         'reg_code' => $regCodePrefix . strtoupper(Str::random(5)),
+        \App\Utils\Constants::DBC_USER_DOB => $faker->date('Y-m-d') ,
     ];
 });

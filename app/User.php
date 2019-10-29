@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Http\Traits\FullTextSearch;
+use App\Utils\Constants;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,7 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'reg_code', 'gender', 'type', 'avatar'
+        'first_name', 'last_name', 'email', 'password', 'reg_code', 'gender', 'type', 'avatar', 'date_of_birth'
     ];
 
     /**
@@ -39,6 +40,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        Constants::DBC_USER_DOB => 'date',
     ];
 
     /**

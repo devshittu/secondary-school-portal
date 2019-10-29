@@ -15,10 +15,10 @@
                             <a class="nav-link" id="staff-tab" data-toggle="tab" href="#staff" role="tab"
                                aria-controls="staff" aria-selected="false">Staff</a>
                         </li>
-                        <li class="nav-item">
+                        {{--<li class="nav-item">
                             <a class="nav-link" id="student-tab" data-toggle="tab" href="#student" role="tab"
                                aria-controls="student" aria-selected="false">Student</a>
-                        </li>
+                        </li>--}}
                         <li class="nav-item">
                             <a class="nav-link" id="report-tab" data-toggle="tab" href="#admin" role="tab"
                                aria-controls="admin" aria-selected="false">Admin</a>
@@ -26,8 +26,6 @@
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="candidate" role="tabpanel" aria-labelledby="candidate-tab">
-
-                            {{--<div class="card-header">{{ __('Register') }}</div>--}}
 
                             <div class="card-body">
                                 <form method="POST" action="{{ route('register') }}">
@@ -84,6 +82,24 @@
                                                 <option value="female">Female</option>
                                             </select>
                                             @error('gender')
+                                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="dob"
+                                               class="col-md-4 col-form-label text-md-right">{{ __('Date of Birth') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="dob" type="date"
+                                                   class="form-control @error('dob') is-invalid @enderror"
+                                                   name="dob" value="{{ old('dob') }}" required
+                                                   autocomplete="dob">
+
+                                            @error('dob')
                                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -195,7 +211,7 @@
 
                                     <div class="form-group row">
                                         <label for="last_name"
-                                               class="col-md-4 col-form-label text-md-right">{{ __('last Name') }}</label>
+                                               class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
 
                                         <div class="col-md-6">
                                             <input id="last_name" type="text"
@@ -229,6 +245,25 @@
                                             @enderror
                                         </div>
                                     </div>
+
+                                    <div class="form-group row">
+                                        <label for="dob"
+                                               class="col-md-4 col-form-label text-md-right">{{ __('Date of Birth') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="dob" type="date"
+                                                   class="form-control @error('dob') is-invalid @enderror"
+                                                   name="dob" value="{{ old('dob') }}" required
+                                                   autocomplete="dob">
+
+                                            @error('dob')
+                                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
 
                                     <div class="form-group row">
                                         <label for="email"
@@ -285,7 +320,7 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="student" role="tabpanel" aria-labelledby="student-tab">
+                        {{--<div class="tab-pane fade" id="student" role="tabpanel" aria-labelledby="student-tab">
                             <div class="card-body">
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
@@ -401,7 +436,7 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
+                        </div>--}}
                         <div class="tab-pane fade" id="admin" role="tabpanel" aria-labelledby="admin-tab">
                             <div class="card-body">
                                 <form method="POST" action="{{ route('register') }}">
@@ -430,7 +465,7 @@
 
                                     <div class="form-group row">
                                         <label for="last_name"
-                                               class="col-md-4 col-form-label text-md-right">{{ __('last Name') }}</label>
+                                               class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
 
                                         <div class="col-md-6">
                                             <input id="last_name" type="text"
@@ -464,6 +499,25 @@
                                             @enderror
                                         </div>
                                     </div>
+
+                                    <div class="form-group row">
+                                        <label for="dob"
+                                               class="col-md-4 col-form-label text-md-right">{{ __('Date of Birth') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="dob" type="date"
+                                                   class="form-control @error('dob') is-invalid @enderror"
+                                                   name="dob" value="{{ old('dob') }}" required
+                                                   autocomplete="dob">
+
+                                            @error('dob')
+                                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
 
                                     <div class="form-group row">
                                         <label for="email"

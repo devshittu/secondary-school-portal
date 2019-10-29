@@ -45,6 +45,7 @@
                            aria-controls="profile" aria-selected="false">Candidate Profile</a>
                     </li>
                     {{--@if (!is_null($profile['exam_datetime']))--}}
+
                         <li class="nav-item">
                             <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
                                aria-controls="contact" aria-selected="false">Exam Schedule</a>
@@ -106,6 +107,12 @@
                             <tr>
                                 <th scope="row">Gender</th>
                                 <td>{{ Auth::user()->gender ?? ''}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Date of Birth</th>
+                                <td>{{ (Auth::user()->date_of_birth)->format('jS M, Y') ?? ''}}
+                                    {{--{{ ($profile['exam_datetime'])->format('l, jS M, Y') ?? 'Unavailable at the moment check back later.'}}--}}
+                                </td>
                             </tr>
                             <tr>
                                 <th scope="row">User Type</th>

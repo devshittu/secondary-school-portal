@@ -401,6 +401,7 @@
 <script src="{{ asset('js/jquery.min.js') }}" defer></script>
 <script src="{{ asset('js/popper.min.js') }}" defer></script>
 <script src="{{ asset('js/bootstrap.min.js') }}" defer></script>
+<script src="{{ asset('js/blink.js') }}" defer></script>
 <script>
     function readURL(input, id) {
         id = id || '#file-image';

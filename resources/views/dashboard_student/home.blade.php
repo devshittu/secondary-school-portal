@@ -45,6 +45,10 @@
                         <a class="nav-link" id="books-tab" data-toggle="tab" href="#books" role="tab"
                            aria-controls="books" aria-selected="false">Recommended Books</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="calender-tab" data-toggle="tab" href="#calender" role="tab"
+                           aria-controls="calender" aria-selected="false">School Calender</a>
+                    </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
 
@@ -165,6 +169,27 @@
                                 <td>28-Dec-2019</td>
                                 <td>28-122019</td>
                                 <td>#1900</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="calender" role="tabpanel" aria-labelledby="calender-tab">
+                        <br>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Event Title</th>
+                                <th scope="col" class="text-right">Publication date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Inter-House Sports</th>
+                                <td class="text-right">28-12-2019</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Continous Assesment Tests (C.A)</th>
+                                <td class="text-right">13-1-2020</td>
                             </tr>
                             </tbody>
                         </table>
