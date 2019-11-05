@@ -20,6 +20,8 @@ class CreateUserStudentProfilesTable extends Migration
             $table->unsignedInteger(Constants::DBC_ENROLL_SESS_ID)->index();
             $table->unsignedInteger(Constants::DBC_ENROLL_CLASS_ID)->index();
 //has_transit
+            $table->string(Constants::DBC_ADDRESS)->nullable();
+            $table->string(Constants::DBC_PARENT_ADDRESS)->nullable();
             $table->boolean(Constants::DBC_HAS_TRANSIT)->index()->default(1);
 
 

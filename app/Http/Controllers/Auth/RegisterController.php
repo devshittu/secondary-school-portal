@@ -81,7 +81,7 @@ class RegisterController extends Controller
         $make_reg_code = get_reg_code_prefix($userType) . strtoupper(Str::random(5));
         $currentSessionId = \App\SystemSetting::find(1)->academic_session_id;
 
-        dump($data);
+//        dump($data);
 
         DB::beginTransaction();
 

@@ -49,6 +49,10 @@
                         <a class="nav-link" id="calender-tab" data-toggle="tab" href="#calender" role="tab"
                            aria-controls="calender" aria-selected="false">School Calender</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab"
+                           aria-controls="results" aria-selected="true">Results</a>
+                    </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
 
@@ -60,10 +64,7 @@
                             <tr>
                                 <th scope="col" class="text-center">#</th>
                                 <th scope="col">Title</th>
-                                <th scope="col">C.A. Test (30)</th>
-                                <th scope="col">Exam (70)</th>
-                                {{--<th scope="col">Total</th>--}}
-                                {{--<th scope="col">Grade</th>--}}
+                                <th scope="col">Category</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -75,10 +76,7 @@
                                         {{ $key + 1 }}
                                     </th>
                                     <td>{{ $subject->academic_subject->title }}</td>
-                                    <td>{{ $subject->ca_test_score ?? '-' }}</td>
-                                    <td>{{ $subject->ca_exam_score ?? '-' }}</td>
-                                    {{--<td>{{ $subject->ca_total ?? '-' }}</td>--}}
-                                    {{--<td>{{ score_grade($subject->ca_total) }}</td>--}}
+                                    <td>{{ $subject->academic_subject->category ?? '-' }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -149,6 +147,10 @@
                                 <th scope="row">User Type</th>
                                 <td>{{ Auth::user()->type ?? '' }}</td>
                             </tr>
+                            <tr>
+                                <th scope="row">Date of Birth</th>
+                                <td>{{ Auth::user()->date_of_birth ?? '' }}</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -193,6 +195,52 @@
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
+
+                        <br>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">C.A. Test (30)</th>
+                                <th scope="col">Exam (70)</th>
+                                {{--<th scope="col">Total</th>--}}
+                                {{--<th scope="col">Grade</th>--}}
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @foreach ($subjects as $key => $subject )
+                                @if (!is_null($subject->ca_test_score))
+                                <tr>
+                                    <th scope="row">
+                                        {{--{{ $subject->id }} --}}
+                                        {{ $key + 1 }}
+                                    </th>
+                                    <td>{{ $subject->academic_subject->title }}</td>
+                                    <td>{{ $subject->ca_test_score ?? '-' }}</td>
+                                    <td>{{ $subject->ca_exam_score ?? '-' }}</td>
+                                    {{--<td>{{ $subject->ca_total ?? '-' }}</td>--}}
+                                    {{--<td>{{ score_grade($subject->ca_total) }}</td>--}}
+                                </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+
+                        <div class="row justify-content-end">
+                            <div class="col-md-6  justify-content-end">
+                                <a href="{{ route('show_student_result') }}" class="btn btn-primary pull-left">
+                                    Show Detailed Result</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="{{ route('show_student_result_past') }}" class="btn btn-dark pull-right">
+                                    Show Old Reports</a>
+                            </div>
+                        </div>
+                        <br>
                     </div>
                 </div>
             </div>

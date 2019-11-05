@@ -17,6 +17,8 @@ class Constants
     //NAME OF THE COLUMNS IN THE DATABASE
     public const DBC_USER_ID = 'user_id';
     public const DBC_USER_DOB = 'date_of_birth';
+    public const DBC_ADDRESS = 'address';
+    public const DBC_PARENT_ADDRESS = 'parent_address';
     public const DBC_USER_TYPE = 'type';
     public const DBC_CODE_NAME = 'code_name';
     public const DBC_SCHOOL_NAME = 'school_name';
@@ -65,5 +67,18 @@ class Constants
 
     const DBC_STD_TERMINAL_LOG_ID = 'student_terminal_log_id';
 
+
+    public const DBCV_SUBJECT_CAT_JUNIOR_GEN = 'junior_general';
+    public const DBCV_SUBJECT_CAT_SENIOR_SCI = 'science';
+    public const DBCV_SUBJECT_CAT_SENIOR_ART = 'art';
+    public const DBCV_SUBJECT_CAT_SENIOR_COM = 'commercial';
+    public const DBCV_SUBJECT_CAT_GEN = 'general';
+    public const AV_SUBJECT_CAT= [
+        self::DBCV_SUBJECT_CAT_JUNIOR_GEN,
+        self::DBCV_SUBJECT_CAT_GEN,
+        self::DBCV_SUBJECT_CAT_SENIOR_ART,
+        self::DBCV_SUBJECT_CAT_SENIOR_COM,
+        self::DBCV_SUBJECT_CAT_SENIOR_SCI ,
+        ];
 
 }

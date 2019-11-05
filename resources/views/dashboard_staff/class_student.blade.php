@@ -34,9 +34,9 @@
                             <td>{{ $student->user->full_name }}</td>
                             <td>{{ $student->user->reg_code ?? '-' }}</td>
                             <td>
-                                <a class="btn btn-dark btn-sm" href="{{ route('show_class', [\App\Utils\Constants::DBC_ACAD_CLASS_ID => $student->user->id]) }}">
+                                {{--<a class="btn btn-dark btn-sm" href="{{ route('show_class', [\App\Utils\Constants::DBC_ACAD_CLASS_ID => $student->user->id]) }}">
                                     View
-                                </a>
+                                </a>--}}
                                 <a class="btn btn-primary btn-sm" href="{{ route('show_student_result_staff', ['student_id' => $student->user->id]) }}">
                                     Result
                                 </a>

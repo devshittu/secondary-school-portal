@@ -14,15 +14,16 @@ class AcademicSubjectsTableSeeder extends Seeder
     {
         DB::statement("
 
-            INSERT INTO `academic_subjects` (`id`, `title`, `code_name`) VALUES
-            ('1', 'English', 'ENG'),
-            ('2', 'Mathematics', 'MTH'),
-            ('3', 'Social Studies', 'SCS'),
-            ('4', 'Home Economics', 'HEC'),
-            ('5', 'Integrated Science', 'ITG'),
-            ('6', 'Biology', 'BIO'),
-            ('7', 'Economics', 'ECO'),
-            ('8', 'Literature', 'LIT');
+            INSERT INTO `academic_subjects` (`id`, `title`, `code_name`, `category`) VALUES
+            ('1', 'English', 'ENG', 'general'),
+            ('2', 'Mathematics', 'MTH', 'general'),
+            ('3', 'Social Studies', 'SCS', 'junior_general'),
+            ('4', 'Home Economics', 'HEC', 'junior_general'),
+            ('5', 'Integrated Science', 'ITG', 'junior_general'),
+            ('6', 'Biology', 'BIO', 'science'),
+            ('7', 'Economics', 'ECO', 'commercial'),
+            ('8', 'Literature', 'LIT', 'art'),
+            ('9', 'Commerce', 'COM', 'commercial');
         ");
     }
 }

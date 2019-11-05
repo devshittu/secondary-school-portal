@@ -13,38 +13,13 @@
         <br>
         <div class="card">
             <div class="card-header">
-                Academic Session
-                <strong> {{ $student_terminal_log->academic_session->title }}</strong>
-                <span class="float-right"> <strong>{{ $student_terminal_log->class_term->academic_term->title }}</strong> Term</span>
-
+                <div>Academic Session
+                <strong> {{ $student_terminal_log->academic_session->title }}</strong></div>
+                <div class="text-center" style="display: block; margin: 0 auto; width: 200px"> Position: <strong>3rd</strong></div>
+                <div class="float-right"> <strong>{{ $student_terminal_log->class_term->academic_term->title }}</strong> Term</div>
+                <div class="clearfix"></div>
             </div>
             <div class="card-body">
-                {{--<div class="row mb-4">
-                    <div class="col-sm-6">
-                        <h6 class="mb-3">From:</h6>
-                        <div>
-                            <strong>Webz Poland</strong>
-                        </div>
-                        <div>Madalinskiego 8</div>
-                        <div>71-101 Szczecin, Poland</div>
-                        <div>Email: info@webz.com.pl</div>
-                        <div>Phone: +48 444 666 3333</div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <h6 class="mb-3">To:</h6>
-                        <div>
-                            <strong>Bob Mart</strong>
-                        </div>
-                        <div>Attn: Daniel Marek</div>
-                        <div>43-190 Mikolow, Poland</div>
-                        <div>Email: marek@daniel.com</div>
-                        <div>Phone: +48 123 456 789</div>
-                    </div>
-
-
-
-                </div>--}}
                 <div class="row mb-4">
                     <div class="col-sm-6">
                         <div>
@@ -89,6 +64,7 @@
 
 
                         @foreach ($subjects as $key => $subject )
+                            @if (!is_null($subject->ca_test_score))
                             <tr>
                                 <th scope="row" class="text-center">
                                     {{--{{ $subject->id }} --}}
@@ -100,6 +76,7 @@
                                 <td>{{ $subject->ca_total ?? '-' }}</td>
                                 <td class="right">{{ score_grade($subject->ca_total) }}</td>
                             </tr>
+                            @endif
                         @endforeach
 
                         </tbody>
