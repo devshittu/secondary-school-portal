@@ -48,8 +48,8 @@ class SettingsController extends Controller
         $newAcadTerm = (int)$request->academic_term;
         $newAcadSess = (int)$request->academic_session;
 
-        if ($oldAcadSess == $newAcadSess or $oldAcadSess < $newAcadSess) {
-            if ($oldAcadTerm < $newAcadTerm) {
+//        if ($oldAcadSess == $newAcadSess or $oldAcadSess < $newAcadSess) {
+//            if ($oldAcadTerm < $newAcadTerm) {
                 $settings->school_name = $request->school_name;
                 $settings->academic_session_id = $request->academic_session;
                 $settings->academic_term_id = $request->academic_term;
@@ -61,8 +61,8 @@ class SettingsController extends Controller
 
 
                 return redirect('settings')->with('success_message', 'Settings Saved!');
-            } else return redirect('settings')->with('failure_message', 'Oops! Only a more recent term is allowed.');
-        } else return redirect('settings')->with('failure_message', 'Oops! Only the same session or a more recent session is allowed. This is for progressive movement of the terminal log');
+//            } else return redirect('settings')->with('failure_message', 'Oops! Only a more recent term is allowed.');
+//        } else return redirect('settings')->with('failure_message', 'Oops! Only the same session or a more recent session is allowed. This is for progressive movement of the terminal log');
 
 
     }

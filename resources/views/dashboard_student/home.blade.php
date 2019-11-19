@@ -166,12 +166,21 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @if ($student_terminal_log->class_term->academic_class->code_name == 'SSS-3')
                             <tr>
                                 <th scope="row">MacMillian English</th>
                                 <td>28-Dec-2019</td>
                                 <td>28-122019</td>
                                 <td>#1900</td>
                             </tr>
+                            @if ($student_terminal_log->class_term->academic_class->code_name == 'SSS-2')
+                                <tr>
+                                    <th scope="row">MacMillian English</th>
+                                    <td>28-Dec-2019</td>
+                                    <td>28-122019</td>
+                                    <td>#1900</td>
+                                </tr>
+                            @endif
                             </tbody>
                         </table>
                     </div>

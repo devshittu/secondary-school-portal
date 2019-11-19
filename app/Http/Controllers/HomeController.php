@@ -67,6 +67,7 @@ class HomeController extends Controller
             $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, Auth::id())->latest('id')->first();
             $data['subjects'] = $studentTerminalLog->student_terminal_log_subjects;
 
+            $data['student_terminal_log'] = $studentTerminalLog;
         }
 
         elseif (Auth::user()->type === Constants::DBCV_USER_TYPE_STAFF) {
